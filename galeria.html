@@ -1,142 +1,578 @@
 <!doctype html>
 <html lang="es" class="h-100">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Galería · UPDS INVESTIGA 2026</title>
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="css/styles.css"/>
-<link rel="icon" type="image/png" href="img/logo_32x32.png"/>
-<style>
-/* Usa los estilos de Ponencias del CSS compartido para el banner y las fechas.
-   Aquí solo se define la cuadrícula de fotos y su ampliación. */
-/* Banner y fechas heredan las reglas de .page-ponencias en css/styles.css. */
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-.page-galeria .hero-strip {
-  left:auto; right:auto; margin-left:25px; margin-right:25px;
-}
-.page-galeria .gallery-day {display:none;}
-.page-galeria .gallery-day.active {display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:1rem;}
-.page-galeria .gallery-item {display:block;width:100%;padding:0;border:0;border-radius:12px;overflow:hidden;aspect-ratio:4/3;background:var(--ponencias-accent-soft);cursor:pointer;position:relative;transition:transform .3s,box-shadow .3s;}
-.page-galeria .gallery-item:hover {transform:scale(1.03);box-shadow:0 12px 32px rgba(6,61,87,.18);}
-.page-galeria .gallery-item img {width:100%;height:100%;object-fit:cover;display:block;}
-.page-galeria .gallery-item__overlay {position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .3s;}
-.page-galeria .gallery-item:hover .gallery-item__overlay,
-.page-galeria .gallery-item:focus-visible .gallery-item__overlay {background:rgba(6,61,87,.3);}
-.page-galeria .gallery-item__overlay span {color:white;font-size:2rem;opacity:0;}
-.page-galeria .gallery-item:hover .gallery-item__overlay span,
-.page-galeria .gallery-item:focus-visible .gallery-item__overlay span {opacity:1;}
-.page-galeria .gallery-empty {grid-column:1 / -1;text-align:center;padding:4rem 2rem;color:var(--ponencias-accent);}
-.page-galeria .gallery-empty span {font-size:3rem;display:block;margin-bottom:.8rem;}
-.page-galeria .gallery-empty p {font-size:1rem;font-weight:600;margin:0;line-height:1.7;}
-.page-galeria .gallery-empty small {display:block;margin-top:.6rem;color:var(--ponencias-text-muted);}
-.page-galeria .lightbox {width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0;padding:24px;border:0;background:rgba(0,0,0,.94);color:white;}
-.page-galeria .lightbox[open] {display:flex;align-items:center;justify-content:center;}
-.page-galeria .lightbox::backdrop {background:rgba(0,0,0,.8);}
-.page-galeria .lightbox img {max-width:90vw;max-height:85dvh;border-radius:12px;object-fit:contain;}
-.page-galeria .lightbox__close {position:absolute;top:16px;right:20px;width:44px;height:44px;border:1px solid #82929b;border-radius:50%;color:white;background:#123041;font-size:1.8rem;cursor:pointer;}
-.page-galeria button:focus-visible {outline:3px solid var(--color-accent);outline-offset:4px;}
-@media(max-width:991.98px){
- .page-galeria .hero-strip {flex-direction:column;min-height:0;height:auto;margin-left:16px;margin-right:16px;}
- .page-galeria .hero-strip__media {flex-basis:auto;height:210px;}
- .page-galeria .hero-strip__panel {padding:1.4rem;}
-}
-@media(prefers-reduced-motion:reduce){.page-galeria .date-tab,.page-galeria .gallery-item {transition:none;transform:none;}}
+  <title>Galería · UPDS INVESTIGA 2026</title>
 
-</style>
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="icon" type="image/png" href="img/logo_32x32.png"/>
+
+  <style>
+    /* Estilos exclusivos de esta página */
+    body.page-galeria {
+      background: #dce9f1;
+      color: #0f2438;
+    }
+
+    .page-galeria .page-wrap {
+      background: transparent;
+    }
+
+    /* Banner */
+    .page-galeria .hero-strip {
+      position: relative;
+      left: auto;
+      right: auto;
+      display: flex;
+      height: 300px;
+      min-height: 190px;
+      margin-left: 25px;
+      margin-right: 25px;
+      overflow: hidden;
+      border-radius: 0 0 28px 28px;
+      background: #087faa;
+      box-shadow: 0 16px 35px rgba(6, 61, 87, .14);
+    }
+
+    .page-galeria .hero-strip__media {
+      position: relative;
+      flex: 0 0 58%;
+      min-width: 0;
+      background: linear-gradient(135deg, #07506d, #27aae1);
+    }
+
+    .page-galeria .hero-strip__media video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-galeria .hero-strip__panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding: 2.2rem 2.4rem;
+      background: linear-gradient(120deg, #07506d, #27aae1);
+    }
+
+    .page-galeria .hero-strip__title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+    }
+
+    /* Fechas */
+    .page-galeria .date-tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .page-galeria .date-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 150px;
+      padding: 1rem 1.8rem;
+      border: 2px solid rgba(7, 80, 109, .2);
+      border-radius: 16px;
+      background: #fff;
+      color: #07506d;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+    }
+
+    .page-galeria .date-tab:hover {
+      transform: translateY(-3px);
+      border-color: #087faa;
+      box-shadow: 0 8px 22px rgba(7, 80, 109, .14);
+    }
+
+    .page-galeria .date-tab.active {
+      border-color: #087faa;
+      background: linear-gradient(135deg, #07506d, #087faa);
+      color: #fff;
+      box-shadow: 0 8px 22px rgba(7, 80, 109, .2);
+    }
+
+    .page-galeria .date-tab__day {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .page-galeria .date-tab__month {
+      margin-top: .3rem;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    /* Panel y cuadrícula */
+    .page-galeria .gallery-surface {
+      padding: clamp(1rem, 3vw, 2rem);
+      border: 1px solid rgba(8, 127, 170, .14);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 16px 40px rgba(15, 36, 56, .09);
+    }
+
+    .page-galeria .gallery-day {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+      gap: 1rem;
+    }
+
+    .page-galeria .gallery-day[hidden] {
+      display: none !important;
+    }
+
+    .page-galeria .gallery-item {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 0;
+      border-radius: 14px;
+      background: #eaf7fc;
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .page-galeria .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(6, 61, 87, .18);
+    }
+
+    .page-galeria .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-galeria .gallery-item__overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      transition: background .25s;
+    }
+
+    .page-galeria .gallery-item__overlay span {
+      color: #fff;
+      font-size: 2.4rem;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .page-galeria .gallery-item:hover .gallery-item__overlay,
+    .page-galeria .gallery-item:focus-visible .gallery-item__overlay {
+      background: rgba(6, 61, 87, .35);
+    }
+
+    .page-galeria .gallery-item:hover .gallery-item__overlay span,
+    .page-galeria .gallery-item:focus-visible .gallery-item__overlay span {
+      opacity: 1;
+    }
+
+    /* Mensaje mientras no hay fotografías */
+    .page-galeria .gallery-empty {
+      grid-column: 1 / -1;
+      padding: 3rem 1rem;
+      text-align: center;
+      color: #07506d;
+    }
+
+    .page-galeria .gallery-empty__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 1.3rem;
+      border-radius: 50%;
+      background: #eaf7fc;
+      font-size: 2.6rem;
+    }
+
+    .page-galeria .gallery-empty p {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .page-galeria .gallery-empty small {
+      display: block;
+      margin-top: .7rem;
+      color: #5f6b7a;
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    /* Visor: nunca debe mostrarse si el diálogo está cerrado */
+    #gallery-lightbox:not([open]) {
+      display: none !important;
+    }
+
+    #gallery-lightbox {
+      position: fixed;
+      inset: 0;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      max-height: 100dvh;
+      margin: 0;
+      padding: 76px 24px 24px;
+      border: 0;
+      background: rgba(6, 24, 36, .96);
+      color: #fff;
+    }
+
+    #gallery-lightbox[open] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #gallery-lightbox::backdrop {
+      background: rgba(0, 0, 0, .65);
+    }
+
+    #gallery-lightbox img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    #gallery-lightbox img[hidden],
+    #gallery-lightbox-status[hidden] {
+      display: none !important;
+    }
+
+    #gallery-lightbox-status {
+      margin: 0;
+      text-align: center;
+    }
+
+    #gallery-lightbox .gallery-lightbox__close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 50%;
+      background: #07506d;
+      color: #fff;
+      font-size: 1.9rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .page-galeria button:focus-visible {
+      outline: 3px solid #27aae1;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 991.98px) {
+      .page-galeria .hero-strip {
+        flex-direction: column;
+        height: auto;
+        min-height: 0;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+
+      .page-galeria .hero-strip__media {
+        flex: none;
+        height: 210px;
+        min-height: 0;
+      }
+
+      .page-galeria .hero-strip__panel {
+        padding: 1.4rem;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .page-galeria .date-tab {
+        min-width: 125px;
+        padding: .9rem 1.2rem;
+      }
+
+      .page-galeria .gallery-empty {
+        padding: 2rem .4rem;
+      }
+
+      #gallery-lightbox {
+        padding: 76px 12px 20px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-galeria .date-tab,
+      .page-galeria .gallery-item,
+      .page-galeria .gallery-item__overlay,
+      .page-galeria .gallery-item__overlay span {
+        transition: none;
+      }
+
+      .page-galeria .date-tab:hover,
+      .page-galeria .gallery-item:hover {
+        transform: none;
+      }
+    }
+  </style>
 </head>
-<body class="page-galeria page-ponencias d-flex flex-column h-100">
-<div class="page-wrap d-flex flex-column min-vh-100">
-  <div class="bg-right d-none d-lg-block" aria-hidden="true"></div>
-  <div id="header-placeholder"></div>
-  <main class="flex-shrink-0 content-padding page-content">
-    <section class="hero-strip my-4">
-      <div class="hero-strip__media">
-        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-          <source src="media/Technology Background.mp4" type="video/mp4"/>
-        </video>
-      </div>
-      <div class="hero-strip__panel"><h1 class="hero-strip__title">Galería</h1></div>
-    </section>
-    <div class="container my-5">
-      <div class="date-tabs" role="group" aria-label="Seleccionar día del evento">
-        <button type="button" class="date-tab active" aria-pressed="true" aria-controls="dia1" onclick="switchDay('dia1',this)">
-          <span class="date-tab__day">20</span><span class="date-tab__month">Octubre 2026</span>
-        </button>
-        <button type="button" class="date-tab" aria-pressed="false" aria-controls="dia2" onclick="switchDay('dia2',this)">
-          <span class="date-tab__day">21</span><span class="date-tab__month">Octubre 2026</span>
-        </button>
-      </div>
-      <div class="gallery-day active" id="dia1" role="region" aria-label="Fotografías del 20 de octubre">
-        <!-- Al publicar las fotos, eliminar .gallery-empty y copiar este bloque:
-        <button type="button" class="gallery-item" aria-label="Ampliar fotografía">
-          <img src="Galeria/20/foto1.jpg" alt="Descripción de la fotografía" loading="lazy"/>
-          <div class="gallery-item__overlay" aria-hidden="true"><span>⌕</span></div>
-        </button>
-        -->
-        <div class="gallery-empty">
-          <span aria-hidden="true">📷</span>
-          <p>Las fotografías del 20 de octubre se subirán el día del evento.</p>
-          <small>Próximamente podrás ver aquí los momentos de la primera jornada.</small>
+
+<body class="page-galeria d-flex flex-column h-100">
+  <div class="page-wrap d-flex flex-column min-vh-100">
+    <div class="bg-right d-none d-lg-block" aria-hidden="true"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main class="flex-shrink-0 content-padding page-content">
+      <section class="hero-strip my-4" aria-labelledby="gallery-title">
+        <div class="hero-strip__media">
+          <video
+            id="gallery-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source src="media/Technology Background.mp4" type="video/mp4"/>
+          </video>
+        </div>
+
+        <div class="hero-strip__panel">
+          <h1 class="hero-strip__title" id="gallery-title">Galería</h1>
+        </div>
+      </section>
+
+      <div class="container my-5">
+        <div class="date-tabs" role="group" aria-label="Seleccionar día del evento">
+          <button
+            type="button"
+            class="date-tab active"
+            aria-pressed="true"
+            aria-controls="dia1"
+            data-day="dia1"
+          >
+            <span class="date-tab__day">20</span>
+            <span class="date-tab__month">Octubre 2026</span>
+          </button>
+
+          <button
+            type="button"
+            class="date-tab"
+            aria-pressed="false"
+            aria-controls="dia2"
+            data-day="dia2"
+          >
+            <span class="date-tab__day">21</span>
+            <span class="date-tab__month">Octubre 2026</span>
+          </button>
+        </div>
+
+        <div class="gallery-surface">
+          <div
+            class="gallery-day"
+            id="dia1"
+            role="region"
+            aria-label="Fotografías del 20 de octubre"
+          >
+            <!--
+              Cuando tengas fotografías, elimina el bloque gallery-empty
+              y agrega un botón como este por cada fotografía:
+
+              <button
+                type="button"
+                class="gallery-item"
+                aria-label="Ampliar fotografía de la primera jornada"
+              >
+                <img
+                  src="Galeria/20/foto1.jpg"
+                  alt="Descripción de la fotografía"
+                  loading="lazy"
+                />
+                <span class="gallery-item__overlay" aria-hidden="true">
+                  <span>+</span>
+                </span>
+              </button>
+            -->
+
+            <div class="gallery-empty">
+              <span class="gallery-empty__icon" aria-hidden="true">📷</span>
+              <p>Las fotografías del 20 de octubre se subirán el día del evento.</p>
+              <small>
+                Próximamente podrás ver aquí los momentos de la primera jornada.
+              </small>
+            </div>
+          </div>
+
+          <div
+            class="gallery-day"
+            id="dia2"
+            role="region"
+            aria-label="Fotografías del 21 de octubre"
+            hidden
+          >
+            <!--
+              Para esta jornada usa las rutas de la carpeta Galeria/21/.
+              Elimina gallery-empty cuando agregues las fotografías.
+            -->
+
+            <div class="gallery-empty">
+              <span class="gallery-empty__icon" aria-hidden="true">📷</span>
+              <p>Las fotografías del 21 de octubre se subirán el día del evento.</p>
+              <small>
+                Próximamente podrás ver aquí los momentos de la segunda jornada.
+              </small>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="gallery-day" id="dia2" role="region" aria-label="Fotografías del 21 de octubre">
-        <!-- Al publicar las fotos, eliminar .gallery-empty y copiar este bloque:
-        <button type="button" class="gallery-item" aria-label="Ampliar fotografía">
-          <img src="Galeria/21/foto1.jpg" alt="Descripción de la fotografía" loading="lazy"/>
-          <div class="gallery-item__overlay" aria-hidden="true"><span>⌕</span></div>
-        </button>
-        -->
-        <div class="gallery-empty">
-          <span aria-hidden="true">📷</span>
-          <p>Las fotografías del 21 de octubre se subirán el día del evento.</p>
-          <small>Próximamente podrás ver aquí los momentos de la segunda jornada.</small>
-        </div>
-      </div>
-    </div>
-  </main>
-  <div id="footer-placeholder" class="mt-auto"></div>
-</div>
-<dialog class="lightbox" id="lightbox" aria-label="Fotografía ampliada">
-  <button type="button" class="lightbox__close" aria-label="Cerrar fotografía" onclick="closeLightbox()" autofocus>×</button>
-  <img id="lightbox-img" alt=""/>
-</dialog>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="js/layout.js"></script>
-<script>
-function switchDay(dayId, btn) {
-  const panel = document.getElementById(dayId);
-  if (!panel) return;
-  document.querySelectorAll('.page-galeria .gallery-day').forEach(day => day.classList.remove('active'));
-  document.querySelectorAll('.page-galeria .date-tab').forEach(tab => {
-    tab.classList.remove('active');
-    tab.setAttribute('aria-pressed', 'false');
-  });
-  panel.classList.add('active');
-  btn.classList.add('active');
-  btn.setAttribute('aria-pressed', 'true');
-}
-const lightbox = document.getElementById('lightbox');
-let previousOverflow = '';
-document.addEventListener('click', event => {
-  const item = event.target.closest('.page-galeria .gallery-item');
-  if (!item) return;
-  const image = item.querySelector('img');
-  if (!image) return;
-  const enlarged = document.getElementById('lightbox-img');
-  enlarged.src = image.src;
-  enlarged.alt = image.alt;
-  previousOverflow = document.body.style.overflow;
-  document.body.style.overflow = 'hidden';
-  lightbox.showModal();
-});
-function closeLightbox() { lightbox.close(); }
-lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
-// El diálogo nativo admite Escape y devuelve el foco al cerrar.
-lightbox.addEventListener('close', () => {
-  document.body.style.overflow = previousOverflow;
-  document.getElementById('lightbox-img').removeAttribute('src');
-});
-</script>
+    </main>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+  </div>
+
+  <dialog id="gallery-lightbox" aria-label="Fotografía ampliada">
+    <button
+      type="button"
+      class="gallery-lightbox__close"
+      id="gallery-lightbox-close"
+      aria-label="Cerrar fotografía"
+      autofocus
+    >×</button>
+
+    <p id="gallery-lightbox-status" role="status" hidden></p>
+    <img id="gallery-lightbox-img" alt="" hidden/>
+  </dialog>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/layout.js"></script>
+
+  <script>
+    (() => {
+      const tabs = document.querySelectorAll(".page-galeria .date-tab");
+      const panels = document.querySelectorAll(".page-galeria .gallery-day");
+      const lightbox = document.getElementById("gallery-lightbox");
+      const enlarged = document.getElementById("gallery-lightbox-img");
+      const status = document.getElementById("gallery-lightbox-status");
+      const closeButton = document.getElementById("gallery-lightbox-close");
+
+      let previousOverflow = "";
+
+      // Cambiar entre las dos jornadas.
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          const panel = document.getElementById(tab.dataset.day);
+          if (!panel) return;
+
+          tabs.forEach(button => {
+            const selected = button === tab;
+            button.classList.toggle("active", selected);
+            button.setAttribute("aria-pressed", String(selected));
+          });
+
+          panels.forEach(item => {
+            item.hidden = item !== panel;
+          });
+        });
+      });
+
+      // Mostrar el estado de carga y evitar un visor vacío si falla la foto.
+      enlarged.addEventListener("load", () => {
+        if (!lightbox.open) return;
+        enlarged.hidden = false;
+        status.hidden = true;
+      });
+
+      enlarged.addEventListener("error", () => {
+        if (!lightbox.open) return;
+        enlarged.hidden = true;
+        status.textContent = "No se pudo cargar la fotografía.";
+        status.hidden = false;
+      });
+
+      document.querySelector(".gallery-surface").addEventListener("click", event => {
+        const item = event.target.closest(".gallery-item");
+        if (!item || lightbox.open) return;
+
+        const image = item.querySelector("img");
+        if (!image) return;
+
+        const source = item.dataset.full || image.currentSrc || image.getAttribute("src");
+        if (!source) return;
+
+        enlarged.hidden = true;
+        enlarged.alt = image.alt || "Fotografía del evento";
+        status.textContent = "Cargando fotografía…";
+        status.hidden = false;
+
+        previousOverflow = document.body.style.overflow;
+        lightbox.showModal();
+        document.body.style.overflow = "hidden";
+        enlarged.src = source;
+      });
+
+      closeButton.addEventListener("click", () => {
+        lightbox.close();
+      });
+
+      // Cerrar al pulsar fuera de la fotografía.
+      lightbox.addEventListener("click", event => {
+        if (event.target === lightbox) lightbox.close();
+      });
+
+      // Escape también cierra el diálogo nativo.
+      lightbox.addEventListener("close", () => {
+        document.body.style.overflow = previousOverflow;
+        enlarged.removeAttribute("src");
+        enlarged.alt = "";
+        enlarged.hidden = true;
+        status.hidden = true;
+      });
+
+      // Si el archivo de video falla, queda visible el fondo azul.
+      const video = document.getElementById("gallery-video");
+      const source = video.querySelector("source");
+
+      const hideFailedVideo = () => {
+        video.style.display = "none";
+      };
+
+      video.addEventListener("error", hideFailedVideo);
+      source.addEventListener("error", hideFailedVideo);
+      if (video.error) hideFailedVideo();
+    })();
+  </script>
 </body>
 </html>
