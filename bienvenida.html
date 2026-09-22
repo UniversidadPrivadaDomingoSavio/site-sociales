@@ -1,121 +1,318 @@
 <!DOCTYPE html>
 <html lang="es" class="h-100">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Bienvenida · Congreso de Inteligencia Artificial y Tecnologías Digitales para la Innovación</title>
+  <title>Bienvenida | UPDS Investiga 2026</title>
 
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css"/>
 
-  <!-- Font Awesome - Íconos online -->
-  <link 
-    rel="stylesheet" 
+  <link
+    rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"
-  >
+  />
 
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" type="image/png" href="img/logo_32x32.png">
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="icon" type="image/png" href="img/logo_32x32.png"/>
+
+  <style>
+    /* Ajustes exclusivos de la bienvenida */
+    .page-bienvenida .hero-strip {
+      left: auto;
+      right: auto;
+      margin-left: 25px;
+      margin-right: 25px;
+    }
+
+    /* Panel institucional del evento */
+    .page-bienvenida .welcome-event {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: clamp(2rem, 4vw, 3rem);
+      overflow: hidden;
+      background: linear-gradient(145deg, #063d57, #087faa);
+      color: #ffffff;
+    }
+
+    .page-bienvenida .welcome-event::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      top: -150px;
+      right: -150px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 40px rgba(255, 255, 255, .04),
+        0 0 0 80px rgba(255, 255, 255, .03);
+      pointer-events: none;
+    }
+
+    .page-bienvenida .welcome-event > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-bienvenida .welcome-event__eyebrow {
+      margin: 0 0 1.5rem;
+      color: #d6f1ff;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .page-bienvenida .welcome-event__title {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      overflow-wrap: anywhere;
+    }
+
+    .page-bienvenida .welcome-event__year {
+      display: block;
+      margin-top: .5rem;
+      color: #a9e4ff;
+    }
+
+    .page-bienvenida .welcome-event__divider {
+      width: 65px;
+      height: 4px;
+      margin: 1.8rem 0;
+      border-radius: 4px;
+      background: #7ed6ff;
+    }
+
+    .page-bienvenida .welcome-event__description {
+      margin: 0;
+      color: #edf8ff;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .page-bienvenida .welcome-event__details {
+      width: 100%;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, .25);
+    }
+
+    .page-bienvenida .welcome-event__details p {
+      margin: 0 0 .6rem;
+      color: #ffffff;
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+
+    .page-bienvenida .welcome-event__details p:last-child {
+      margin-bottom: 0;
+    }
+
+    .page-bienvenida .welcome-event__details strong {
+      color: #ffffff;
+    }
+
+    .page-bienvenida .welcome-event__organizer {
+      display: block;
+      margin-top: 1.5rem;
+      color: #d6f1ff;
+      font-size: .85rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 991.98px) {
+      .page-bienvenida .hero-strip {
+        height: auto;
+        margin-left: 16px;
+        margin-right: 16px;
+      }
+
+      .page-bienvenida .welcome-event {
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .page-bienvenida .welcome-event,
+      .page-bienvenida .welcome-card__content {
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 
 <body class="page-bienvenida d-flex flex-column h-100">
   <div class="page-wrap d-flex flex-column min-vh-100">
 
-    <div class="bg-right d-none d-lg-block"></div>
+    <div
+      class="bg-right d-none d-lg-block"
+      aria-hidden="true"
+    ></div>
+
     <div id="header-placeholder"></div>
 
     <main class="flex-shrink-0 content-padding page-content">
 
-      <!-- HERO / BANNER -->
-      <section class="hero-strip my-4">
+      <!-- BANNER -->
+      <section class="hero-strip my-4" aria-labelledby="page-title">
         <div class="hero-strip__media">
-          <video autoplay muted loop playsinline preload="metadata">
-            <source src="media/Technology Background.mp4" type="video/mp4">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-hidden="true"
+          >
+            <source
+              src="media/Technology Background.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
 
         <div class="hero-strip__panel">
-          <h2 class="hero-strip__title">Bienvenida</h2>
+          <h1 class="hero-strip__title" id="page-title">
+            Bienvenida
+          </h1>
         </div>
       </section>
 
       <!-- CONTENIDO PRINCIPAL -->
       <div class="container my-5">
 
-        <section class="welcome-card">
+        <section class="welcome-card" aria-labelledby="welcome-title">
 
-          <!-- FOTO DEL DECANO -->
-          <div class="welcome-card__photo">
-            <div class="welcome-photo-composition">
+          <!-- IDENTIDAD DEL EVENTO -->
+          <div class="welcome-event">
 
-              <div class="welcome-photo-composition__portrait-card">
-                <img 
-                  src="img/decano.jpeg" 
-                  alt="MSc. Wilmer Campos Saavedra"
-                  onerror="this.onerror=null; this.src='img/logo_32x32.png';"
-                >
-              </div>
+            <p class="welcome-event__eyebrow">
+              Universidad Privada Domingo Savio
+            </p>
 
+            <h2 class="welcome-event__title">
+              UPDS<br/>
+              INVESTIGA
+              <span class="welcome-event__year">2026</span>
+            </h2>
+
+            <div
+              class="welcome-event__divider"
+              aria-hidden="true"
+            ></div>
+
+            <p class="welcome-event__description">
+              Jornadas Internacionales de Investigación
+            </p>
+
+            <div class="welcome-event__details">
+              <p>
+                <strong>20 y 21 de octubre de 2026</strong>
+              </p>
+
+              <p>
+                Sede Santa Cruz
+              </p>
             </div>
+
+            <span class="welcome-event__organizer">
+              Organiza:<br/>
+              Facultad de Ciencias Sociales
+            </span>
+
           </div>
 
-          <!-- TEXTO DE BIENVENIDA -->
+          <!-- MENSAJE DE BIENVENIDA -->
           <div class="welcome-card__content">
 
-            <h1 class="welcome-card__title">
-              ¡Bienvenidos a la innovación digital e Ingeniería!
-            </h1>
+            <span class="welcome-card__badge">
+              Investigación e intercambio académico
+            </span>
+
+            <h2 class="welcome-card__title" id="welcome-title">
+              ¡Bienvenidos a UPDS Investiga 2026!
+            </h2>
 
             <p>
-              Como Decano de la Facultad de Ingeniería en la <strong>UPDS Sede Central Santa Cruz</strong>, 
-              es un verdadero gusto darles la bienvenida a este espacio diseñado para mentes motivadas 
-              e inquietas por la innovación y la tecnología.
+              La <strong>Universidad Privada Domingo Savio,
+              Sede Santa Cruz</strong>, les da la bienvenida a las
+              <strong>Jornadas Internacionales de Investigación
+              “UPDS INVESTIGA 2026”</strong>, un espacio para compartir
+              conocimientos, intercambiar experiencias y fortalecer
+              los vínculos entre investigadores, docentes y estudiantes.
             </p>
 
             <p>
-              Este congreso no es solo una serie de conferencias; es un punto de encuentro donde la teoría 
-              académica se da la mano con la realidad tecnológica que está transformando el mundo. Hemos reunido 
-              a expertos de primer nivel para explorar los pilares y avances que hoy están moviendo la innovación 
-              en todo el mundo:
+              Los días <strong>20 y 21 de octubre de 2026</strong>,
+              estas jornadas reunirán aportes de distintas disciplinas
+              y perspectivas nacionales e internacionales. Buscamos
+              fortalecer la cultura investigativa y promover el diálogo
+              entre la ciencia, la tecnología, la innovación y las
+              humanidades, con una mirada orientada al desarrollo
+              sostenible de nuestra sociedad.
             </p>
 
             <div class="welcome-topics">
 
               <div class="welcome-topic">
                 <div class="welcome-topic__icon">
-                  <i class="fa-solid fa-brain" aria-hidden="true"></i>
+                  <i
+                    class="fa-solid fa-microscope"
+                    aria-hidden="true"
+                  ></i>
                 </div>
+
                 <div>
-                  <h3>Inteligencia Artificial y Agentes Inteligentes</h3>
+                  <h3>Investigación desde distintas disciplinas</h3>
                   <p>
-                    Desde cómo resolver problemas reales en ingeniería hasta el desarrollo de software boliviano 
-                    para mercados europeos.
+                    Un encuentro que integra las Ciencias de la Salud,
+                    Ingeniería y Tecnología, Ciencias Empresariales,
+                    Ciencias Sociales y Ciencias Jurídicas.
                   </p>
                 </div>
               </div>
 
               <div class="welcome-topic">
                 <div class="welcome-topic__icon">
-                  <i class="fa-solid fa-link" aria-hidden="true"></i>
+                  <i
+                    class="fa-solid fa-comments"
+                    aria-hidden="true"
+                  ></i>
                 </div>
+
                 <div>
-                  <h3>Revolución Digital y Finanzas</h3>
+                  <h3>Conocimiento que se comparte</h3>
                   <p>
-                    Entendiendo el impacto real del <strong>Blockchain</strong>, las criptomonedas y las nuevas 
-                    dinámicas de los mercados financieros.
+                    Ponencias científicas presenciales y virtuales,
+                    junto con la presentación presencial de pósteres,
+                    para difundir resultados y enriquecer las
+                    investigaciones mediante el intercambio académico.
                   </p>
                 </div>
               </div>
 
               <div class="welcome-topic">
                 <div class="welcome-topic__icon">
-                  <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+                  <i
+                    class="fa-solid fa-handshake"
+                    aria-hidden="true"
+                  ></i>
                 </div>
+
                 <div>
-                  <h3>Agilidad y Educación</h3>
+                  <h3>Colaboración para nuevos proyectos</h3>
                   <p>
-                    Cómo <strong>Scrum</strong> evoluciona con la IA y de qué manera estamos transformando 
-                    el aprendizaje de la programación para las nuevas generaciones.
+                    Un espacio para establecer contactos, conectar
+                    experiencias y abrir oportunidades de trabajo
+                    conjunto en proyectos de investigación y desarrollo
+                    de alcance nacional e internacional.
                   </p>
                 </div>
               </div>
@@ -123,19 +320,25 @@
             </div>
 
             <p>
-              En la UPDS creemos que la ingeniería es, ante todo, una herramienta para crear soluciones humanas. 
-              Los invito a que aprovechen cada sesión, participen preguntando y se lleven ideas que puedan empezar 
-              a ejecutar mañana mismo.
+              Desde la <strong>Facultad de Ciencias Sociales</strong>,
+              los invitamos a participar con curiosidad, espíritu crítico
+              y disposición para aprender de otras disciplinas.
+              Cada pregunta, experiencia y aporte puede contribuir
+              a comprender mejor los desafíos de nuestro entorno
+              y a construir respuestas desde la investigación.
             </p>
 
             <p class="welcome-card__closing">
-              ¡Que disfruten este espacio innovador del mundo digital y que estas jornadas sean el inicio de sus 
-              próximos grandes proyectos!
+              ¡Que estas jornadas sean una oportunidad para compartir
+              descubrimientos, sumar ideas y dar inicio a nuevas
+              colaboraciones!
             </p>
 
             <div class="welcome-signature">
-              <strong>MSc. Wilmer Campos Saavedra</strong>
-              <span>Decano de la Facultad de Ingeniería</span>
+              <strong>Facultad de Ciencias Sociales</strong>
+              <span>
+                Universidad Privada Domingo Savio · Sede Santa Cruz
+              </span>
             </div>
 
           </div>
