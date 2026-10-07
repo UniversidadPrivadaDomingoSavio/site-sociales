@@ -110,6 +110,32 @@
         opacity: 0.9;
       }
 
+      /* Contenedor de filas para separar horizontalmente los botones */
+      .filter-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem; /* ESTA ES LA SEPARACIÓN ENTRE LOS CUADRITOS */
+        width: 100%;
+      }
+
+      /* Línea separadora elegante */
+      .filter-separator {
+        width: 60%;
+        max-width: 400px;
+        height: 1.5px;
+        background: linear-gradient(
+          90deg,
+          rgba(203, 213, 225, 0) 0%,
+          rgba(203, 213, 225, 1) 50%,
+          rgba(203, 213, 225, 0) 100%
+        );
+        border: none;
+        opacity: 0.7;
+        margin-top: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+
       @media (max-width: 575.98px) {
         #speakerModal .modal-dialog {
           width: calc(100% - 16px);
@@ -130,6 +156,9 @@
         }
         .custom-filter-btn__main {
           font-size: 1.1rem;
+        }
+        .filter-group {
+          gap: 1.5rem; /* Separación un poco menor en celulares para que quepan bien */
         }
         .filter-separator {
           width: 80%;
@@ -156,10 +185,10 @@
         </section>
 
         <div class="container my-5">
-          <!-- CONTENEDOR DE FILTROS DOBLES -->
+          <!-- CONTENEDOR PRINCIPAL DE LOS FILTROS -->
           <div class="d-flex flex-column align-items-center mb-5">
             <!-- FILTROS POR FECHA -->
-            <div class="d-flex justify-content-center flex-wrap gap-4 w-100">
+            <div class="filter-group">
               <button
                 type="button"
                 class="custom-filter-btn active"
@@ -190,10 +219,10 @@
             </div>
 
             <!-- SEPARADOR ELEGANTE -->
-            <hr class="filter-separator my-4" />
+            <hr class="filter-separator" />
 
             <!-- FILTROS POR HORARIO -->
-            <div class="d-flex justify-content-center flex-wrap gap-4 w-100">
+            <div class="filter-group">
               <button
                 type="button"
                 class="custom-filter-btn active"
@@ -596,7 +625,7 @@
           mainTitle:
             "Impacto de la tutoría pedagógica en el rendimiento académico de los estudiantes de primer año de la Universidad Autónoma San Sebastián (UASS)",
           profile:
-            "Docente universitaria, tutora de tesis e investigadora paraguaya, con formación en educación, administración y contabilidad. Cursa el Doctorado en Educación y posee maestrías en Investigación y en Educación Superior, además de especializaciones en Didáctica Superior y Metodología de la Investigación. Desde 2010 ejerce la docencia en instituciones como la Universidad del Norte, la Universidad Americana, la Universidad San Sebastián y USIL, así como en el Ministerio de Educación y Ciencias (MEC) de Paraguay. Ha sido distinguida como «Docente Digital ORO» por USIL y como docente destacada por la Universidad del Norte y el MEC.",
+            "Docente universitaria, tutora de tesis e investigadora paraguaya, con formación en educación, administración y contabilidad. Cursa el Doctorado en Educación y posee maestrías en Investigación y en Educación Superior, además de especializaciones en Didáctica Superior y Metodología de la Investigación. Desde 2010 ejerce la docencia en institutions como la Universidad del Norte, la Universidad Americana, la Universidad San Sebastián y USIL, así como en el Ministerio de Educación y Ciencias (MEC) de Paraguay. Ha sido distinguida como «Docente Digital ORO» por USIL y como docente destacada por la Universidad del Norte y el MEC.",
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
