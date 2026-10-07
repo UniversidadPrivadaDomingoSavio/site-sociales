@@ -3,75 +3,352 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      UPDS | Investiga
-    </title>
+    <title>UPDS | Investiga · II versión</title>
 
-    <!-- Bootstrap 5 (LOCAL, desde tu carpeta vendor) -->
+    <!-- Bootstrap 5 local -->
     <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
 
-    <!-- Tus estilos personalizados -->
+    <!-- Estilos existentes de tu página -->
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="icon" type="image/png" href="img/logo_32x32.png" />
+
+    <!--
+      ESTILOS NUEVOS
+      Puedes mover el contenido de este bloque al final de css/styles.css.
+      En ese caso, elimina las etiquetas <style> y </style> de este archivo.
+    -->
+    <style>
+      /* HERO: altura flexible para que el botón quede dentro del cuadro */
+      .hero-main {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        grid-template-rows: auto;
+        align-items: stretch;
+        gap: 0;
+        height: auto;
+        min-height: 420px;
+        max-height: none;
+        aspect-ratio: auto;
+        overflow: hidden;
+      }
+
+      .hero-main .hero-main__media {
+        position: relative;
+        width: auto;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+        max-height: none;
+        overflow: hidden;
+      }
+
+      .hero-main .hero-main__media video {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-main .hero-main__brand {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        min-width: 0;
+        height: auto;
+        min-height: 420px;
+        max-height: none;
+        padding: 2rem clamp(1.25rem, 3vw, 3rem);
+        background: #fff;
+        text-align: center;
+      }
+
+      /* Logo más contenido para dejar espacio a la información */
+      .hero-main .hero-main__logo {
+        display: block;
+        flex: 0 0 auto;
+        width: min(100%, 330px);
+        max-width: 100%;
+        height: auto;
+        max-height: 210px;
+        margin: 0;
+        object-fit: contain;
+      }
+
+      .hero-main .hero-main__divider {
+        display: none;
+      }
+
+      .hero-main__event-info {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        max-width: 100%;
+        margin: 0;
+      }
+
+      /* II versión: texto entre dos líneas finas */
+      .hero-main__edition {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #123e57;
+        font-size: 0.73rem;
+        line-height: 1.5;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .hero-main__edition::before,
+      .hero-main__edition::after {
+        content: "";
+        width: 24px;
+        height: 1px;
+        background: #cbd7dd;
+      }
+
+      .hero-main__edition strong {
+        font-weight: 800;
+      }
+
+      .hero-main .hero-main__subtitle {
+        margin: 0;
+        color: #4a6678;
+        font-size: 0.76rem;
+        line-height: 1.6;
+        letter-spacing: 0.1em;
+      }
+
+      .hero-main__brand .btn-inscripcion {
+        flex: 0 0 auto;
+
+        /* Reemplaza el margen de mt-3; el espacio lo controla gap */
+        margin-top: 0 !important;
+      }
+
+      /* VIDEOS PROMOCIONALES */
+      .upds-promo {
+        margin: 2rem 0 3rem;
+        padding: clamp(1.5rem, 3.5vw, 3rem);
+        border: 0;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 8px 26px rgba(24, 35, 48, 0.06);
+      }
+
+      .upds-promo__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        max-width: 680px;
+        margin: 0 auto 2rem;
+        text-align: center;
+      }
+
+      .upds-promo__eyebrow {
+        margin: 0 0 0.6rem;
+        color: #6b7e8b;
+        font-size: 0.7rem;
+        font-weight: 600;
+        line-height: 1.5;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .upds-promo__title {
+        margin: 0;
+        color: #103b53;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.025em;
+      }
+
+      .upds-promo__intro {
+        max-width: 34rem;
+        margin: 0;
+        color: #6a7a85;
+        font-size: 0.94rem;
+        line-height: 1.7;
+      }
+
+      .upds-promo__grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .upds-promo__video {
+        min-width: 0;
+        margin: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      /* Si solo hay un video, queda centrado */
+      .upds-promo__video:only-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 100%;
+        max-width: 680px;
+      }
+
+      .upds-promo__player {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: contain;
+        border: 0;
+        border-radius: 14px;
+        background: #fff;
+      }
+
+      .upds-promo__player:focus-visible {
+        outline: 3px solid #24566e;
+        outline-offset: 4px;
+      }
+
+      .upds-promo__caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.35rem 1rem;
+        margin: 0;
+        padding: 1rem 0 0;
+        border: 0;
+        background: transparent;
+        color: #284759;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .upds-promo__caption strong {
+        font-weight: 600;
+      }
+
+      .upds-promo__caption span {
+        color: #72818b;
+        font-size: 0.8rem;
+      }
+
+      .hero-main .hero-main__edition {
+        font-size: 1.3rem;
+        gap: 1rem;
+      }
+
+      .hero-main .hero-main__edition::before,
+      .hero-main .hero-main__edition::after {
+        width: 200px;
+        height: 2px;
+      }
+
+      /* TABLETS Y MÓVILES */
+      @media (max-width: 991.98px) {
+        .hero-main {
+          grid-template-columns: minmax(0, 1fr);
+          min-height: 0;
+        }
+
+        .hero-main .hero-main__media {
+          height: clamp(200px, 40vw, 320px);
+        }
+
+        .hero-main .hero-main__brand {
+          min-height: 0;
+          padding: 1.75rem 1.25rem;
+        }
+
+        .hero-main .hero-main__logo {
+          width: min(100%, 280px);
+          max-height: 180px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .upds-promo {
+          margin: 1.5rem 0 2rem;
+          padding: 1.5rem 1rem;
+          border-radius: 20px;
+        }
+
+        .upds-promo__header {
+          margin-bottom: 1.5rem;
+        }
+
+        .upds-promo__grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .upds-promo__player {
+          border-radius: 10px;
+        }
+      }
+    </style>
   </head>
 
   <body class="d-flex flex-column h-100">
-    <!-- =========================================================
-       WRAPPER GENERAL DE PÁGINA
-       - Aquí metemos la capa del fondo derecho y el contenido.
-       - El wrapper se hace "relative" en CSS para que el fondo
-         absoluto se posicione dentro de toda la página.
-  ========================================================== -->
     <div class="page-wrap d-flex flex-column min-vh-100">
-      <!-- =========================================================
-         FONDO DERECHO (DECORATIVO)
-         - Es una capa detrás del contenido (z-index bajo).
-         - Solo se muestra desde pantallas grandes (d-lg-block),
-           para que en móviles no estorbe (d-none).
-    ========================================================== -->
+      <!-- Fondo decorativo -->
       <div class="bg-right d-none d-lg-block"></div>
 
       <!-- Header cargado por JS -->
       <div id="header-placeholder"></div>
 
-      <!-- =========================================================
-         CONTENIDO PRINCIPAL
-         - page-content sube el contenido por encima del fondo
-           usando z-index en CSS.
-         - content-padding evita que el header fijo tape el inicio.
-    ========================================================== -->
       <main class="flex-shrink-0 content-padding page-content">
-        <!-- =========================================================
-           HERO PRINCIPAL
-      ========================================================= -->
+        <!-- HERO PRINCIPAL -->
         <section class="hero-main my-4">
-          <!-- Izquierda: imagen -->
           <div class="hero-main__media">
             <video autoplay muted loop playsinline>
               <source src="media/Technology Background.mp4" type="video/mp4" />
             </video>
           </div>
 
-          <!-- Derecha: branding -->
           <div class="hero-main__brand">
             <img
               src="img/logo.png"
-              alt="II Congreso de Ingeniería 2026"
+              alt="UPDS Investiga 2026"
               class="hero-main__logo"
             />
+
             <div class="hero-main__divider"></div>
-            <p class="hero-main__subtitle">Santa Cruz de la Sierra · Bolivia</p>
+
+            <!-- NUEVO: versión destacada y ubicación en una segunda línea -->
+            <div class="hero-main__event-info">
+              <p class="hero-main__edition"><strong>II versión</strong></p>
+              <p class="hero-main__subtitle">
+                Santa Cruz de la Sierra · Bolivia
+              </p>
+            </div>
+
             <a
-              href="Organizadores.html"
+              href="inscripcion.html"
               class="btn btn-inscripcion fw-bold px-4 py-2 mt-3"
-              >Inscripción</a
             >
+              Inscripción
+            </a>
           </div>
         </section>
 
-        <!-- =========================================================
-           CARDS DE ACCESO RÁPIDO
-      ========================================================= -->
+        <!-- CARDS DE ACCESO RÁPIDO -->
         <section class="quick-access">
           <a href="bienvenida.html" class="quick-card">
             <div class="quick-card__img">
@@ -106,16 +383,51 @@
             </div>
           </a>
         </section>
+
+        <!-- NUEVO: VIDEOS PROMOCIONALES, después de las tarjetas -->
+        <section class="upds-promo" aria-labelledby="promo-title">
+          <header class="upds-promo__header">
+            <div>
+              <h2 id="promo-title" class="upds-promo__title">
+                Videos promocionales
+              </h2>
+            </div>
+            <p class="upds-promo__intro">
+              Conoce nuestra segunda versión y sé parte del encuentro.
+            </p>
+          </header>
+
+          <div class="upds-promo__grid">
+            <!--
+              Coloca tu archivo MP4 en la ruta del source.
+              La precarga permite mostrar el primer fotograma cuando esté disponible.
+              Si el archivo comienza en negro, puedes añadir una captura mediante poster.
+              Para añadir más videos, duplica este figure dentro de la grilla.
+            -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="auto"
+                aria-label="Video promocional de UPDS Investiga 2026, segunda versión"
+              >
+                <source src="media/promocional-01.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/promocional-01.mp4">
+                  Abrir el video promocional.
+                </a>
+              </video>
+            </figure>
+          </div>
+        </section>
       </main>
+
       <!-- Footer cargado por JS -->
       <div id="footer-placeholder" class="mt-auto"></div>
     </div>
 
-    <!-- =========================================================
-       SCRIPTS
-       - Usa el Bootstrap local para mantener todo consistente.
-       - layout.js es tu script para insertar header/footer.
-  ========================================================== -->
+    <!-- SCRIPTS EXISTENTES -->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="js/layout.js"></script>
   </body>

@@ -128,7 +128,11 @@
             >
               <span class="date-tab__day">Tarde</span>
             </button>
-            <button type="button" class="date-tab" onclick="filterPonencias('noche', this)">
+            <button
+              type="button"
+              class="date-tab"
+              onclick="filterPonencias('noche', this)"
+            >
               <span class="date-tab__day">Noche</span>
             </button>
           </div>
@@ -215,151 +219,408 @@
       let speakerModal = null;
 
       const speakers = [
-  {
-    "name": "Ruth Koria Saracho",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "tarde",
-    "image": "img/ponencias/Ruth Koria Saracho.jpg",
-    "academicTitle": "Médico Cirujano",
-    "area": "Ciencias de la Salud",
-    "mainTitle": "Características sociodemográficas y clínicas, e indicadores de bienestar y autocuidado, en personas con VIH en seguimiento en el SSU",
-    "profile": "Médico Cirujano, docente universitaria y profesional en formación de posgrado en Salud Pública, con experiencia en atención médica, docencia, epidemiología, investigación e interacción social. Desde 2022 se desempeña como docente de la Facultad de Ciencias de la Salud de la Universidad Privada Domingo Savio y como Coordinadora de Interacción Social en Salud. Cuenta con formación en Educación Superior y Metodologías Activas, experiencia en acompañamiento de proyectos de investigación estudiantil y participación en procesos de autoevaluación y Acreditación MERCOSUR de la Carrera de Medicina.",
-    "schedules": [
-      {
-        "sessionLabel": "20 de octubre de 2026 · Tarde",
-        "time": "Por confirmar",
-        "title": "Características sociodemográficas y clínicas, e indicadores de bienestar y autocuidado, en personas con VIH en seguimiento en el SSU"
-      }
-    ]
-  },
-  {
-    "name": "Dra. Wara Salinas",
-    "country": "Chile",
-    "flag": "img/banderas/chile.png",
-    "session": "tarde",
-    "image": "img/ponencias/Wara Salinas.jpg",
-    "academicTitle": "Médica cirujana",
-    "area": "Ciencias de la Salud",
-    "mainTitle": "Rol de las vitaminas para regular la neuroinflamación presente en modelos de autismo",
-    "profile": "Médica cirujana egresada de la Universidad Mayor de San Andrés (UMSA, Bolivia), con formación especializada en investigación médica por la Universidad Europea del Atlántico (España). Actualmente cursa el Magíster en Ciencias Biomédicas en la Universidad Católica de la Santísima Concepción (Chile), con orientación en neurociencias. Su trayectoria se centra en los mecanismos celulares y moleculares de la neuroinflamación y neurodegeneración. Fue Presidenta de la Sociedad Científica Estudiantil de Medicina de la UMSA y Directora Internacional de CPEDEC-FELSOCEM, con experiencia en publicaciones científicas y congresos internacionales.",
-    "schedules": [
-      {
-        "sessionLabel": "20 de octubre de 2026 · Tarde",
-        "time": "Por confirmar",
-        "title": "Rol de las vitaminas para regular la neuroinflamación presente en modelos de autismo"
-      }
-    ]
-  },
-  {
-    "name": "Guillermo Julio Salvatierra Reyes",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "tarde",
-    "image": "img/ponencias/Guillermo Julio Salvatierra Reyes.jpg",
-    "academicTitle": "Estudiante de Derecho",
-    "area": "Ciencias Jurídicas",
-    "mainTitle": "La Inteligencia Artificial y su posible aplicación en la administración de justicia en Bolivia",
-    "profile": "Estudiante de 4to semestre de la carrera de Derecho de la Universidad Privada Domingo Savio, de 20 años, con 6 meses de experiencia como locutor y presentador en el programa Tacuareando de Radio Comercio 90.4 FM. Cursó el III Coaching Inductivo al Litigio Oral Penal (UPDS) y el Curso de Inteligencia Artificial aplicada al periodismo (UNIFRANZ).",
-    "schedules": [
-      {
-        "sessionLabel": "21 de octubre de 2026 · Tarde",
-        "time": "Por confirmar",
-        "title": "La Inteligencia Artificial y su posible aplicación en la administración de justicia en Bolivia"
-      }
-    ]
-  },
-  {
-    "name": "Róssely Royo Algarañaz",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "tarde",
-    "image": "img/ponencias/Róssely Royo Algarañaz.jpg",
-    "academicTitle": "Estudiante de Derecho",
-    "area": "Ciencias Jurídicas",
-    "mainTitle": "La violencia intrafamiliar en Bolivia: distancia entre el marco jurídico y su aplicación práctica",
-    "profile": "Estudiante de Derecho, integrante del Semillero de Investigación de Ciencias Jurídicas, con genuino interés por la investigación y el análisis de problemáticas sociales desde una perspectiva jurídica. Cuenta con un trabajo investigativo de tesina sobre el declive de la salud mental en los jóvenes de Santa Cruz, lo que refleja su compromiso con temas de relevancia social. Participa activamente en espacios de formación e investigación que fortalecen su perfil académico y su vocación por generar conocimiento aplicado a la realidad boliviana.",
-    "schedules": [
-      {
-        "sessionLabel": "21 de octubre de 2026 · Tarde",
-        "time": "Por confirmar",
-        "title": "La violencia intrafamiliar en Bolivia: distancia entre el marco jurídico y su aplicación práctica"
-      }
-    ]
-  },
-  {
-    "name": "Marcial Villarroel Siles",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "manana",
-    "image": "img/ponencias/Marcial Villarroel Siles.jpg",
-    "academicTitle": "Doctorado y Maestría en Educación Superior; Licenciado en Economía",
-    "area": "Ciencias Sociales",
-    "mainTitle": "Crisis ontológica de los modelos educativos mecanicistas: hacia una reestructuración epistémica basada en la teoría del \"universo consciente\"",
-    "profile": "Analista financiero y autor con residencia en Barcelona y Bolivia. Prolífico escritor con 56 títulos en seis años, más de 275 publicaciones editadas en ocho idiomas y distribuidas en 30 países. Doctorado y Maestría en Educación Superior (EMI); Magíster en Banca y Finanzas y Licenciado en Economía (UAGRM/UCB). Autor editorial (KDP Penguin Random House); Gerente de Desarrollo en JICA; Analista Financiero Corporativo en Banco Santander. Evaluador de comités editoriales en revistas científicas indexadas, miembro de la Academia Boliviana de Ciencias Criminológicas y docente invitado de posgrado en UPDS, EMI y otras universidades.",
-    "schedules": [
-      {
-        "sessionLabel": "21 de octubre de 2026 · Mañana",
-        "time": "Por confirmar",
-        "title": "Crisis ontológica de los modelos educativos mecanicistas: hacia una reestructuración epistémica basada en la teoría del \"universo consciente\""
-      }
-    ]
-  },
-  {
-    "name": "Paola Alemán Valdivia",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "manana",
-    "image": "img/ponencias/Paola Alemán Valdivia.jpg",
-    "academicTitle": "Licenciada en Psicopedagogía",
-    "area": "Ciencias Sociales",
-    "mainTitle": "Competencias digitales y rendimiento académico en estudiantes de nuevo ingreso de la Facultad de Ciencias Sociales",
-    "profile": "Psicopedagoga, Licenciada en Psicopedagogía por la Universidad Privada Domingo Savio (UPDS). Cuenta con diplomados en Docencia Universitaria Basada en Formación por Competencias (2022), Educación Superior y Gestión Académica e Innovación (2024), Innovación Tecnológica en Educación Superior (2024), Acreditación e Investigación Científica en Educación Superior (2025), e Intervención y Evaluación Psicopedagógica (UAGRM, 2024), además de la Especialidad en Estimulación e Intervención en Educación Especial (UAGRM, 2024). Actualmente cursa la Maestría en Educación Superior orientada a la Investigación e Innovación (UPDS), con perfil de tesis presentado y en espera de corrección para su defensa. Cuenta con publicaciones indexadas en ResearchGate y un artículo en revisión para la Revista Taikuere sobre competencias digitales y rendimiento académico universitario.",
-    "schedules": [
-      {
-        "sessionLabel": "21 de octubre de 2026 · Mañana",
-        "time": "Por confirmar",
-        "title": "Competencias digitales y rendimiento académico en estudiantes de nuevo ingreso de la Facultad de Ciencias Sociales"
-      }
-    ]
-  },
-  {
-    "name": "Edson Huanca Cayoja",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "noche",
-    "image": "img/ponencias/Edson Huanca Cayoja.jpg",
-    "academicTitle": "Magíster en Administración de Negocios",
-    "area": "Ingeniería y tecnología",
-    "mainTitle": "Inteligencia de riesgos aplicada al transporte ferroviario de granos",
-    "profile": "Magíster en Administración de Negocios (UAGRM) y especialista en Agronegocios (Agroeducación Argentina). Doctorante en Investigación Científica (UAGRM), con experiencia en gestión industrial, innovación, análisis de datos, riesgos productivos y mercados de futuros aplicados al sector agroindustrial.",
-    "schedules": [
-      {
-        "sessionLabel": "20 de octubre de 2026 · Noche",
-        "time": "Por confirmar",
-        "title": "Inteligencia de riesgos aplicada al transporte ferroviario de granos"
-      }
-    ]
-  },
-  {
-    "name": "Luis Cristian Torrez La Fuente",
-    "country": "Bolivia",
-    "flag": "img/banderas/bolivia.png",
-    "session": "noche",
-    "image": "img/ponencias/Luis Cristian Torrez La Fuente.jpg",
-    "academicTitle": "Ingeniero industrial",
-    "area": "Ingeniería y tecnología",
-    "mainTitle": "Modelado optimizado de una micro-planta de drones de reforestación: parámetros operativos para la certificación y obtención de bonos de carbono",
-    "profile": "Ingeniero industrial y emprendedor boliviano, cofundador y CEO de Alliox. Especialista en gestión de proyectos, lidera la transformación digital del sector inmobiliario mediante herramientas tecnológicas e innovación, impulsando soluciones estratégicas para dinamizar la economía y la industria a nivel nacional.",
-    "schedules": [
-      {
-        "sessionLabel": "20 de octubre de 2026 · Noche",
-        "time": "Por confirmar",
-        "title": "Modelado optimizado de una micro-planta de drones de reforestación: parámetros operativos para la certificación y obtención de bonos de carbono"
-      }
-    ]
-  }
-];
+        {
+          name: "Héctor Horacio Vitale",
+          country: "Argentina",
+          flag: "img/banderas/argentina.png",
+          session: "tarde",
+          image: "img/ponencias/Héctor Horacio Vitale.jpg",
+          academicTitle: "",
+          area: "Ciencias Jurídicas",
+          mainTitle:
+            "¿Por qué el Derecho no es ciencia? (Su condición de sociotécnica y su posibilidad como sociotecnología)",
+          profile:
+            "Abogado y notario por la Universidad Nacional del Litoral, especialista en Derecho Notarial por la Universidad de Salamanca (España) y doctor en Derecho por la Universidad Católica de Santa Fe. Titular del Registro Notarial N.º 172 de Paraná desde 1997, fundó y dirige la carrera de Notariado de la Universidad Católica Argentina (sede Paraná), donde es titular de Teoría Notarial, y enseña Derecho Notarial en la Universidad Católica de Santa Fe. Es autor de siete libros de derecho notarial y registral, dos de ellos distinguidos con el Premio José María Moreno, y miembro del Ateneo de la Academia Nacional del Notariado.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "¿Por qué el Derecho no es ciencia? (Su condición de sociotécnica y su posibilidad como sociotecnología)",
+            },
+          ],
+        },
+        {
+          name: "Ruth Koria Saracho",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "tarde",
+          image: "img/ponencias/Ruth Koria Saracho.jpg",
+          academicTitle: "Médico Cirujano",
+          area: "Ciencias de la Salud",
+          mainTitle:
+            "Características sociodemográficas y clínicas, e indicadores de bienestar y autocuidado, en personas con VIH en seguimiento en el SSU",
+          profile:
+            "Médico Cirujano, docente universitaria y profesional en formación de posgrado en Salud Pública, con experiencia en atención médica, docencia, epidemiología, investigación e interacción social. Desde 2022 se desempeña como docente de la Facultad de Ciencias de la Salud de la Universidad Privada Domingo Savio y como Coordinadora de Interacción Social en Salud. Cuenta con formación en Educación Superior y Metodologías Activas, experiencia en acompañamiento de proyectos de investigación estudiantil y participación en procesos de autoevaluación y Acreditación MERCOSUR de la Carrera de Medicina.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "Características sociodemográficas y clínicas, e indicadores de bienestar y autocuidado, en personas con VIH en seguimiento en el SSU",
+            },
+          ],
+        },
+        {
+          name: "José Darío Pérez Cardozo",
+          country: "Paraguay",
+          flag: "img/banderas/paraguay.png",
+          session: "manana",
+          image: "img/ponencias/José Darío Pérez Cardozo.jpg",
+          academicTitle: "",
+          area: "Ciencias Empresariales",
+          mainTitle:
+            "Impacto social y económico de los estudiantes brasileños de Medicina de la UASS en los pequeños contribuyentes del barrio San Luis, San Lorenzo (Paraguay)",
+          profile:
+            "Economista egresado de la Facultad de Ciencias Económicas de la Universidad Nacional de Asunción, especialista en Didáctica Superior Universitaria por la Universidad Autónoma San Sebastián (UASS) y maestrando en Educación. En la UASS se desempeña como Director de Internacionalización del Mercosur y Cooperación al Desarrollo y como Director de Carreras de la Facultad de Ciencias Económicas y Empresariales, además de docente en áreas económicas, empresariales y de investigación. Su gestión se orienta al fortalecimiento de la cooperación académica, la movilidad y la vinculación interinstitucional, integrando la investigación formativa, la sostenibilidad y la innovación.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Impacto social y económico de los estudiantes brasileños de Medicina de la UASS en los pequeños contribuyentes del barrio San Luis, San Lorenzo (Paraguay)",
+            },
+          ],
+        },
+        {
+          name: "Dra. Wara Salinas",
+          country: "Chile",
+          flag: "img/banderas/chile.png",
+          session: "tarde",
+          image: "img/ponencias/Wara Salinas.jpg",
+          academicTitle: "Médica cirujana",
+          area: "Ciencias de la Salud",
+          mainTitle:
+            "Rol de las vitaminas para regular la neuroinflamación presente en modelos de autismo",
+          profile:
+            "Médica cirujana egresada de la Universidad Mayor de San Andrés (UMSA, Bolivia), con formación especializada en investigación médica por la Universidad Europea del Atlántico (España). Actualmente cursa el Magíster en Ciencias Biomédicas en la Universidad Católica de la Santísima Concepción (Chile), con orientación en neurociencias. Su trayectoria se centra en los mecanismos celulares y moleculares de la neuroinflamación y neurodegeneración. Fue Presidenta de la Sociedad Científica Estudiantil de Medicina de la UMSA y Directora Internacional de CPEDEC-FELSOCEM, con experiencia en publicaciones científicas y congresos internacionales.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "Rol de las vitaminas para regular la neuroinflamación presente en modelos de autismo",
+            },
+          ],
+        },
+
+        {
+          name: "Elisabeth Viviana Lucero Baldevenites",
+          country: "España",
+          flag: "img/banderas/espana.png",
+          session: "noche",
+          image: "img/ponencias/Elisabeth Viviana Lucero Baldevenites.jpg",
+          academicTitle: "",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Ingeniería de los materiales como motor de innovación: nuevas tendencias en materiales para una construcción sustentable",
+          profile:
+            "Doctora e investigadora de la Universidad de Las Palmas de Gran Canaria (ULPGC), España. Su trabajo se sitúa en el campo de la ingeniería de los materiales, con especial interés en la innovación y en las nuevas tendencias en materiales orientadas a una construcción sustentable, vinculando el desarrollo tecnológico con los desafíos ambientales del sector de la edificación.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Ingeniería de los materiales como motor de innovación: nuevas tendencias en materiales para una construcción sustentable",
+            },
+          ],
+        },
+        {
+          name: "Jhoan Alfredo Plua Montiel",
+          country: "Ecuador",
+          flag: "img/banderas/ecuador.png",
+          session: "noche",
+          image: "img/ponencias/Jhoan Alfredo Plua Montiel.jpg",
+          academicTitle: "",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Valorización integral de subproductos del cacao (Theobroma cacao L.) a través del desarrollo de procesos biotecnológicos para la obtención de bioproductos y biomateriales de interés agroalimentario",
+          profile:
+            "Ingeniero Agroindustrial y Licenciado en Gestión de Empresas, con Maestría en Biotecnología y Máster en Agroalimentación, con especialidad en Producción y Tecnologías Agroalimentarias. Cursa el Doctorado en Ingeniería de Productos y Procesos de la Industria Alimentaria en la Universidad de Córdoba (Argentina). Ha sido docente e investigador en la Universidad Técnica Estatal de Quevedo y en la Universidad de las Fuerzas Armadas ESPE, con experiencia en diseño experimental, gestión de la producción y control de calidad. Su producción científica en agroindustria, biotecnología, alimentos y cacao incluye publicaciones indexadas en Scopus y Web of Science.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Valorización integral de subproductos del cacao (Theobroma cacao L.) a través del desarrollo de procesos biotecnológicos para la obtención de bioproductos y biomateriales de interés agroalimentario",
+            },
+          ],
+        },
+        {
+          name: "Gabriela Lourdes Vélez Bermello",
+          country: "Ecuador",
+          flag: "img/banderas/ecuador.png",
+          session: "manana",
+          image: "img/ponencias/Gabriela Lourdes Vélez Bermello.jpg",
+          academicTitle: "",
+          area: "Ciencias Sociales",
+          mainTitle:
+            "Percepción del riesgo de desinformación y preparación organizacional: protocolos, rutas de reporte y capacitación",
+          profile:
+            "Doctora en Comunicación Social por la Universidad Nacional de Rosario (Argentina), Magíster en Periodismo y Magíster en Educación Superior e Investigación. Es docente investigadora en la Universidad Estatal Península de Santa Elena (UPSE), Ecuador, y Founder CEO del Centro de Producción de Ideas. Periodista multimedios con más de 16 años de experiencia en medios de comunicación.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Percepción del riesgo de desinformación y preparación organizacional: protocolos, rutas de reporte y capacitación",
+            },
+          ],
+        },
+        {
+          name: "Marcial Villarroel Siles",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "manana",
+          image: "img/ponencias/Marcial Villarroel Siles.jpg",
+          academicTitle:
+            "Doctorado y Maestría en Educación Superior; Licenciado en Economía",
+          area: "Ciencias Sociales",
+          mainTitle:
+            'Crisis ontológica de los modelos educativos mecanicistas: hacia una reestructuración epistémica basada en la teoría del "universo consciente"',
+          profile:
+            "Analista financiero y autor con residencia en Barcelona y Bolivia. Prolífico escritor con 56 títulos en seis años, más de 275 publicaciones editadas en ocho idiomas y distribuidas en 30 países. Doctorado y Maestría en Educación Superior (EMI); Magíster en Banca y Finanzas y Licenciado en Economía (UAGRM/UCB). Autor editorial (KDP Penguin Random House); Gerente de Desarrollo en JICA; Analista Financiero Corporativo en Banco Santander. Evaluador de comités editoriales en revistas científicas indexadas, miembro de la Academia Boliviana de Ciencias Criminológicas y docente invitado de posgrado en UPDS, EMI y otras universidades.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                'Crisis ontológica de los modelos educativos mecanicistas: hacia una reestructuración epistémica basada en la teoría del "universo consciente"',
+            },
+          ],
+        },
+        {
+          name: "Edgar Meza Mescco",
+          country: "Perú",
+          flag: "img/banderas/peru.png",
+          session: "manana",
+          image: "img/ponencias/Edgar Meza Mescco.jpg",
+          academicTitle: "",
+          area: "Ciencias Empresariales",
+          mainTitle:
+            "Estructura de costos operativos en la industria cementera: revisión sistemática de literatura",
+          profile:
+            "Magíster y docente de planta de la Facultad de Administración de la Universidad Nacional Micaela Bastidas de Apurímac (UNAMBA), Perú. Su trabajo académico abarca la gestión de costos y el análisis de la eficiencia operativa en el sector industrial, así como la Responsabilidad Social Universitaria y el emprendedurismo. Actualmente desarrolla, junto a la Universidad Privada Domingo Savio (UPDS), un estudio de benchmarking colaborativo entre ambas universidades orientado a identificar y transferir buenas prácticas de RSU vinculadas al emprendimiento.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Estructura de costos operativos en la industria cementera: revisión sistemática de literatura",
+            },
+          ],
+        },
+        {
+          name: "José Turpín Saorín",
+          country: "España",
+          flag: "img/banderas/espana.png",
+          session: "manana",
+          image: "img/ponencias/José Turpín Saorín.jpg",
+          academicTitle: "",
+          area: "Ciencias Sociales",
+          mainTitle:
+            "Nuevos retos… y la complejidad para «conectar» la IA en la escuela del presente",
+          profile:
+            "Filósofo y antropólogo, doctor por la Universidad de Murcia, con estudios de antropología en la Universidad Miguel Hernández de Elche. Es profesor asociado del Área de Antropología y profesor de Antropología Educativa en la Universidad de Murcia, e investigador del Centro de Estudios Europeos (CEEUM). Realizó su tesis sobre concepciones del cuerpo y género con una estancia en la Universidad de Chicago y, desde 2019, investiga las concepciones del tiempo en los indios Pueblo de Santa Fe (Nuevo México). Ha sido conferencista en la UNAM, la Universidad Simón Bolívar y la Universidad de Guadalajara.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Nuevos retos… y la complejidad para «conectar» la IA en la escuela del presente",
+            },
+          ],
+        },
+        {
+          name: "Maddela Naga Raju",
+          country: "Ecuador",
+          flag: "img/banderas/ecuador.png",
+          session: "noche",
+          image: "img/ponencias/Maddela Naga Raju.jpg",
+          academicTitle: "",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Biodegradación de hidrocarburos de petróleo en suelos contaminados de la Amazonía ecuatoriana mediante un cultivo mixto de bacterias y hongos autóctonos",
+          profile:
+            "Ph.D. en Microbiología y Profesor Titular Principal del Departamento de Ciencias Biológicas de la Facultad de Ciencias de la Salud de la Universidad Técnica de Manabí (Portoviejo, Ecuador). Su línea de investigación se centra en la microbiología ambiental y la biorremediación, con énfasis en el aislamiento e identificación de microorganismos autóctonos capaces de degradar hidrocarburos de petróleo en suelos de la Amazonía ecuatoriana. Su trabajo se orienta a desarrollar soluciones biotecnológicas para la recuperación de ecosistemas afectados por la actividad petrolera.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Biodegradación de hidrocarburos de petróleo en suelos contaminados de la Amazonía ecuatoriana mediante un cultivo mixto de bacterias y hongos autóctonos",
+            },
+          ],
+        },
+        {
+          name: "Edson Huanca Cayoja",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "noche",
+          image: "img/ponencias/Edson Huanca Cayoja.jpg",
+          academicTitle: "Magíster en Administración de Negocios",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Inteligencia de riesgos aplicada al transporte ferroviario de granos",
+          profile:
+            "Magíster en Administración de Negocios (UAGRM) y especialista en Agronegocios (Agroeducación Argentina). Doctorante en Investigación Científica (UAGRM), con experiencia en gestión industrial, innovación, análisis de datos, riesgos productivos y mercados de futuros aplicados al sector agroindustrial.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Inteligencia de riesgos aplicada al transporte ferroviario de granos",
+            },
+          ],
+        },
+        {
+          name: "Rossana Arguello Silva",
+          country: "Paraguay",
+          flag: "img/banderas/paraguay.png",
+          session: "manana",
+          image: "img/ponencias/Rossana Arguello Silva.jpg",
+          academicTitle: "",
+          area: "Ciencias Sociales",
+          mainTitle:
+            "Impacto de la tutoría pedagógica en el rendimiento académico de los estudiantes de primer año de la Universidad Autónoma San Sebastián (UASS)",
+          profile:
+            "Docente universitaria, tutora de tesis e investigadora paraguaya, con formación en educación, administración y contabilidad. Cursa el Doctorado en Educación y posee maestrías en Investigación y en Educación Superior, además de especializaciones en Didáctica Superior y Metodología de la Investigación. Desde 2010 ejerce la docencia en instituciones como la Universidad del Norte, la Universidad Americana, la Universidad San Sebastián y USIL, así como en el Ministerio de Educación y Ciencias (MEC) de Paraguay. Ha sido distinguida como «Docente Digital ORO» por USIL y como docente destacada por la Universidad del Norte y el MEC.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Impacto de la tutoría pedagógica en el rendimiento académico de los estudiantes de primer año de la Universidad Autónoma San Sebastián (UASS)",
+            },
+          ],
+        },
+        {
+          name: "José Eduardo Zawadsky",
+          country: "Chile",
+          flag: "img/banderas/chile.png",
+          session: "tarde",
+          image: "img/ponencias/José Eduardo Zawadsky.jpg",
+          academicTitle: "",
+          area: "Ciencias Jurídicas",
+          mainTitle:
+            "Implementación de políticas de promoción de la explotación de tierras raras en Chile",
+          profile:
+            "Abogado vinculado a la Universidad de Chile, con interés académico en el derecho público y la regulación de los recursos naturales. Su línea de trabajo aborda el análisis de las políticas públicas y los marcos normativos que orientan el aprovechamiento de minerales estratégicos, con especial atención a la promoción y explotación de tierras raras en Chile. Su enfoque integra la perspectiva jurídica con los desafíos económicos, ambientales y de desarrollo que plantea este sector emergente para la región.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "Implementación de políticas de promoción de la explotación de tierras raras en Chile",
+            },
+          ],
+        },
+        {
+          name: "Luis Humberto Vásquez Cortez",
+          country: "Ecuador",
+          flag: "img/banderas/ecuador.png",
+          session: "noche",
+          image: "img/ponencias/Luis Humberto Vásquez Cortez.jpg",
+          academicTitle: "",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Fermentación dirigida con microorganismos y extractos naturales de frutas para la reducción de cadmio en el cacao (Theobroma cacao L.)",
+          profile:
+            "Egresado del Doctorado en Ingeniería de Productos y Procesos de la Industria Alimentaria y Profesor Titular Principal de la Carrera de Agroindustria, Facultad de Ciencias Agropecuarias de la Universidad Técnica de Babahoyo (Los Ríos, Ecuador). Su investigación se enfoca en la agroindustria del cacao ecuatoriano, en particular en estrategias de fermentación dirigida con microorganismos y extractos naturales de frutas para reducir el contenido de cadmio y mejorar la calidad fisicoquímica, fermentativa y sensorial del grano, aportando alternativas biotecnológicas para su manejo poscosecha y comercialización.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Fermentación dirigida con microorganismos y extractos naturales de frutas para la reducción de cadmio en el cacao (Theobroma cacao L.)",
+            },
+          ],
+        },
+        {
+          name: "Guillermo Julio Salvatierra Reyes",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "tarde",
+          image: "img/ponencias/Guillermo Julio Salvatierra Reyes.jpg",
+          academicTitle: "Estudiante de Derecho",
+          area: "Ciencias Jurídicas",
+          mainTitle:
+            "La Inteligencia Artificial y su posible aplicación en la administración de justicia en Bolivia",
+          profile:
+            "Estudiante de 4to semestre de la carrera de Derecho de la Universidad Privada Domingo Savio, de 20 años, con 6 meses de experiencia como locutor y presentador en el programa Tacuareando de Radio Comercio 90.4 FM. Cursó el III Coaching Inductivo al Litigio Oral Penal (UPDS) y el Curso de Inteligencia Artificial aplicada al periodismo (UNIFRANZ).",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "La Inteligencia Artificial y su posible aplicación en la administración de justicia en Bolivia",
+            },
+          ],
+        },
+        {
+          name: "Róssely Royo Algarañaz",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "tarde",
+          image: "img/ponencias/Róssely Royo Algarañaz.jpg",
+          academicTitle: "Estudiante de Derecho",
+          area: "Ciencias Jurídicas",
+          mainTitle:
+            "La violencia intrafamiliar en Bolivia: distancia entre el marco jurídico y su aplicación práctica",
+          profile:
+            "Estudiante de Derecho, integrante del Semillero de Investigación de Ciencias Jurídicas, con genuino interés por la investigación y el análisis de problemáticas sociales desde una perspectiva jurídica. Cuenta con un trabajo investigativo de tesina sobre el declive de la salud mental en los jóvenes de Santa Cruz, lo que refleja su compromiso con temas de relevancia social. Participa activamente en espacios de formación e investigación que fortalecen su perfil académico y su vocación por generar conocimiento aplicado a la realidad boliviana.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Tarde",
+              time: "Por confirmar",
+              title:
+                "La violencia intrafamiliar en Bolivia: distancia entre el marco jurídico y su aplicación práctica",
+            },
+          ],
+        },
+        {
+          name: "Paola Alemán Valdivia",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "manana",
+          image: "img/ponencias/Paola Alemán Valdivia.jpg",
+          academicTitle: "Licenciada en Psicopedagogía",
+          area: "Ciencias Sociales",
+          mainTitle:
+            "Competencias digitales y rendimiento académico en estudiantes de nuevo ingreso de la Facultad de Ciencias Sociales",
+          profile:
+            "Psicopedagoga, Licenciada en Psicopedagogía por la Universidad Privada Domingo Savio (UPDS). Cuenta con diplomados en Docencia Universitaria Basada en Formación por Competencias (2022), Educación Superior y Gestión Académica e Innovación (2024), Innovación Tecnológica en Educación Superior (2024), Acreditación e Investigación Científica en Educación Superior (2025), e Intervención y Evaluación Psicopedagógica (UAGRM, 2024), además de la Especialidad en Estimulación e Intervención en Educación Especial (UAGRM, 2024). Actualmente cursa la Maestría en Educación Superior orientada a la Investigación e Innovación (UPDS), con perfil de tesis presentado y en espera de corrección para su defensa. Cuenta con publicaciones indexadas en ResearchGate y un artículo en revisión para la Revista Taikuere sobre competencias digitales y rendimiento académico universitario.",
+          schedules: [
+            {
+              sessionLabel: "21 de octubre de 2026 · Mañana",
+              time: "Por confirmar",
+              title:
+                "Competencias digitales y rendimiento académico en estudiantes de nuevo ingreso de la Facultad de Ciencias Sociales",
+            },
+          ],
+        },
+        {
+          name: "Luis Cristian Torrez La Fuente",
+          country: "Bolivia",
+          flag: "img/banderas/bolivia.png",
+          session: "noche",
+          image: "img/ponencias/Luis Cristian Torrez La Fuente.jpg",
+          academicTitle: "Ingeniero industrial",
+          area: "Ingeniería y tecnología",
+          mainTitle:
+            "Modelado optimizado de una micro-planta de drones de reforestación: parámetros operativos para la certificación y obtención de bonos de carbono",
+          profile:
+            "Ingeniero industrial y emprendedor boliviano, cofundador y CEO de Alliox. Especialista en gestión de proyectos, lidera la transformación digital del sector inmobiliario mediante herramientas tecnológicas e innovación, impulsando soluciones estratégicas para dinamizar la economía y la industria a nivel nacional.",
+          schedules: [
+            {
+              sessionLabel: "20 de octubre de 2026 · Noche",
+              time: "Por confirmar",
+              title:
+                "Modelado optimizado de una micro-planta de drones de reforestación: parámetros operativos para la certificación y obtención de bonos de carbono",
+            },
+          ],
+        },
+      ];
 
       // Fotos: nombre exacto del ponente sin tratamiento, con espacios y tildes.
       // Ejemplo: img/ponencias/Paola Alemán Valdivia.jpg
@@ -369,7 +630,9 @@
         const attempt = Number(img.dataset.imageAttempt || 0) + 1;
         img.dataset.imageAttempt = String(attempt);
         if (speaker && attempt < extensions.length) {
-          img.src = encodeURI(speaker.image.slice(0, -4) + "." + extensions[attempt]);
+          img.src = encodeURI(
+            speaker.image.slice(0, -4) + "." + extensions[attempt],
+          );
         } else {
           img.onerror = null;
           img.src = fallbackImg;
@@ -497,7 +760,9 @@
         modalImage.dataset.speakerIndex = String(index);
         modalImage.dataset.imageAttempt = "0";
         modalImage.alt = speaker.name;
-        modalImage.onerror = function () { trySpeakerImage(this); };
+        modalImage.onerror = function () {
+          trySpeakerImage(this);
+        };
         modalImage.src = encodeURI(speaker.image || fallbackImg);
 
         document.getElementById("modalSpeakerName").textContent = speaker.name;

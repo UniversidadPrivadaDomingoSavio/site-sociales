@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="es" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscripciones | UPDS Investiga · II versión</title>
+    <meta
+      name="description"
+      content="Inscripciones para oyentes externos de UPDS Investiga 2026. Participación gratuita para estudiantes y contacto con la UPDS por WhatsApp."
+    />
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <!-- La misma biblioteca de iconos utilizada en Bienvenida. -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" href="img/logo_32x32.png" />
+
+    <style>
+      /* Mismos ajustes de margen que en la página de Bienvenida.
+         El diseño del hero se mantiene en el styles.css compartido. */
+      .page-inscripcion .hero-strip {
+        left: auto;
+        right: auto;
+        margin-left: 25px;
+        margin-right: 25px;
+      }
+
+      /* Los nuevos estilos se limitan al contenido de inscripción. */
+      .registration-content {
+        --reg-navy: #063d57;
+        --reg-blue: #087faa;
+        --reg-muted: #5f7583;
+        --reg-line: #e4edf2;
+        --reg-shadow: 0 10px 30px rgba(6, 61, 87, 0.07);
+        color: var(--reg-navy);
+      }
+
+      .registration-content *,
+      .registration-content *::before,
+      .registration-content *::after {
+        box-sizing: border-box;
+      }
+
+      .registration-heading {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        margin-bottom: 1.65rem;
+      }
+
+      .registration-eyebrow {
+        margin: 0 0 0.55rem;
+        color: #287797;
+        font-size: 0.71rem;
+        font-weight: 700;
+        line-height: 1.6;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .registration-heading__title {
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: clamp(1.55rem, 2.7vw, 2rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.025em;
+      }
+
+      .registration-event-date {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        color: #3c657a;
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .registration-event-date > i {
+        color: var(--reg-blue);
+        font-size: 1.4rem;
+      }
+
+      .registration-event-date p {
+        margin: 0;
+      }
+
+      .registration-event-date span {
+        display: block;
+        color: var(--reg-muted);
+        font-size: 0.78rem;
+      }
+
+      .registration-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+        align-items: start;
+        gap: 1.5rem;
+      }
+
+      .registration-options {
+        display: grid;
+        gap: 1.25rem;
+        min-width: 0;
+      }
+
+      .registration-card {
+        position: relative;
+        min-width: 0;
+        overflow: hidden;
+        border: 1px solid var(--reg-line);
+        border-radius: 22px;
+        background: #fff;
+        box-shadow: var(--reg-shadow);
+      }
+
+      .registration-card--external {
+        padding: clamp(1.5rem, 3vw, 2.1rem);
+      }
+
+      .registration-card--external::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 4px;
+        background: linear-gradient(90deg, #063d57, #1aa5d2);
+      }
+
+      .registration-card__heading {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .registration-icon {
+        display: grid;
+        flex: 0 0 54px;
+        place-items: center;
+        width: 54px;
+        height: 54px;
+        border: 1px solid #e0eef5;
+        border-radius: 16px;
+        background: #f0f7fb;
+        color: #087faa;
+        font-size: 1.4rem;
+      }
+
+      .registration-card__heading .registration-eyebrow {
+        margin-bottom: 0.3rem;
+      }
+
+      .registration-card__title {
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: clamp(1.3rem, 2vw, 1.6rem);
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+
+      .registration-card__text {
+        margin: 1rem 0 0;
+        color: var(--reg-muted);
+        font-size: 0.94rem;
+        line-height: 1.75;
+      }
+
+      .registration-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+        margin: 1.45rem 0;
+        padding: 1.25rem 1.3rem;
+        border: 1px solid #e3edf3;
+        border-radius: 16px;
+        background: linear-gradient(110deg, #f4f9fc, #fff);
+      }
+
+      .registration-price__label {
+        margin: 0;
+        color: #31596e;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .registration-price__label span {
+        display: block;
+        margin-top: 0.3rem;
+        color: var(--reg-muted);
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+
+      .registration-price__amount {
+        display: flex;
+        align-items: baseline;
+        gap: 0.4rem;
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.045em;
+        white-space: nowrap;
+      }
+
+      .registration-price__amount span {
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+
+      .registration-facts {
+        display: grid;
+        gap: 0.85rem;
+        margin: 0 0 1.5rem;
+        padding: 0;
+        list-style: none;
+      }
+
+      .registration-facts li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        color: #466779;
+        font-size: 0.86rem;
+        line-height: 1.6;
+      }
+
+      .registration-facts i {
+        flex: 0 0 18px;
+        margin-top: 0.2rem;
+        color: #1781aa;
+        text-align: center;
+      }
+
+      .registration-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        width: 100%;
+        min-height: 49px;
+        padding: 0.9rem 1.15rem;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        font-size: 0.92rem;
+        font-weight: 700;
+        line-height: 1.5;
+        text-align: center;
+        text-decoration: none;
+        transition:
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .registration-button--form {
+        background: linear-gradient(115deg, #076184, #087faa);
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(8, 127, 170, 0.16);
+      }
+
+      .registration-button--form:hover {
+        background: #075675;
+        color: #fff;
+        box-shadow: 0 8px 20px rgba(8, 127, 170, 0.2);
+      }
+
+      .registration-button--whatsapp {
+        background: #12804a;
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(18, 128, 74, 0.14);
+      }
+
+      .registration-button--whatsapp:hover {
+        background: #0c693c;
+        color: #fff;
+      }
+
+      .registration-button--whatsapp .fa-whatsapp {
+        font-size: 1.35rem;
+      }
+
+      .registration-button:focus-visible {
+        outline: 3px solid #155b7b;
+        outline-offset: 4px;
+      }
+
+      .registration-note {
+        margin: 0.7rem 0 0;
+        color: #71828c;
+        font-size: 0.74rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .registration-students {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+      }
+
+      .registration-students__content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .registration-students__title {
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: 1.1rem;
+        font-weight: 750;
+        line-height: 1.4;
+      }
+
+      .registration-students__text {
+        margin: 0.3rem 0 0;
+        color: var(--reg-muted);
+        font-size: 0.87rem;
+        line-height: 1.6;
+      }
+
+      .registration-students__badge {
+        flex: 0 0 auto;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid #d9eaf2;
+        border-radius: 999px;
+        background: #eff7fb;
+        color: #17617f;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      /* Panel de contacto con los mismos azules de welcome-event. */
+      .registration-contact__header {
+        position: relative;
+        overflow: hidden;
+        padding: 1.9rem 1.75rem;
+        background: linear-gradient(145deg, #063d57, #087faa);
+        color: #fff;
+        text-align: center;
+      }
+
+      .registration-contact__header::before {
+        content: "";
+        position: absolute;
+        top: -95px;
+        right: -95px;
+        width: 200px;
+        height: 200px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 50%;
+        box-shadow:
+          0 0 0 30px rgba(255, 255, 255, 0.035),
+          0 0 0 60px rgba(255, 255, 255, 0.025);
+        pointer-events: none;
+      }
+
+      .registration-contact__header > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .registration-contact__icon {
+        display: grid;
+        place-items: center;
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        border-radius: 19px;
+        background: rgba(255, 255, 255, 0.11);
+        color: #fff;
+        font-size: 2.25rem;
+      }
+
+      .registration-contact__header .registration-eyebrow {
+        color: #d6f1ff;
+        font-size: 0.67rem;
+      }
+
+      .registration-contact__title {
+        margin: 0;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 750;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+      }
+
+      .registration-contact__subtitle {
+        margin: 0.75rem 0 0;
+        color: #e2f3fc;
+        font-size: 0.85rem;
+        line-height: 1.7;
+      }
+
+      .registration-contact__body {
+        padding: 1.75rem;
+      }
+
+      .registration-organizer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1.35rem;
+        border-bottom: 1px solid var(--reg-line);
+      }
+
+      .registration-organizer img {
+        display: block;
+        flex: 0 0 80px;
+        width: 80px;
+        height: 70px;
+        object-fit: contain;
+      }
+
+      .registration-organizer__name {
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: 0.94rem;
+        font-weight: 750;
+        line-height: 1.45;
+      }
+
+      .registration-organizer__details {
+        margin: 0.45rem 0 0;
+        color: var(--reg-muted);
+        font-size: 0.75rem;
+        line-height: 1.6;
+      }
+
+      .registration-phone {
+        padding: 1.35rem 0;
+        text-align: center;
+      }
+
+      .registration-phone__label {
+        margin: 0 0 0.35rem;
+        color: #6c808c;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .registration-phone__number {
+        margin: 0;
+        color: var(--reg-navy);
+        font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+        font-weight: 800;
+        line-height: 1.45;
+        letter-spacing: 0.025em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      @media (max-width: 991.98px) {
+        .page-inscripcion .hero-strip {
+          height: auto;
+          margin-left: 16px;
+          margin-right: 16px;
+        }
+
+        .registration-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .registration-contact {
+          display: grid;
+          grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        }
+
+        .registration-contact__header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        .registration-heading {
+          align-items: flex-start;
+        }
+
+        .registration-card {
+          border-radius: 18px;
+        }
+
+        .registration-card--external,
+        .registration-contact__body {
+          padding: 1.4rem;
+        }
+
+        .registration-students {
+          flex-wrap: wrap;
+          padding: 1.25rem;
+        }
+
+        .registration-students__content {
+          flex-basis: calc(100% - 70px);
+        }
+
+        .registration-students__badge {
+          margin-left: 70px;
+        }
+
+        .registration-contact {
+          display: block;
+        }
+
+        .registration-organizer {
+          gap: 0.8rem;
+        }
+
+        .registration-organizer img {
+          flex-basis: 68px;
+          width: 68px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .registration-button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="page-inscripcion d-flex flex-column h-100">
+    <div class="page-wrap d-flex flex-column min-vh-100">
+      <div class="bg-right d-none d-lg-block" aria-hidden="true"></div>
+      <div id="header-placeholder"></div>
+
+      <main class="flex-shrink-0 content-padding page-content">
+        <!-- Mismo hero de Bienvenida: únicamente cambia el título. -->
+        <section class="hero-strip my-4" aria-labelledby="page-title">
+          <div class="hero-strip__media">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-hidden="true"
+            >
+              <source src="media/Technology Background.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          <div class="hero-strip__panel">
+            <h1 class="hero-strip__title" id="page-title">Inscripciones</h1>
+          </div>
+        </section>
+
+        <section
+          class="container my-5 registration-content"
+          aria-labelledby="participacion-title"
+        >
+          <div class="registration-heading">
+            <div>
+              <p class="registration-eyebrow">
+                UPDS Investiga 2026 · II versión
+              </p>
+              <h2 class="registration-heading__title" id="participacion-title">
+                Participa como oyente
+              </h2>
+            </div>
+            <div class="registration-event-date">
+              <i class="fa-regular fa-calendar-days" aria-hidden="true"></i>
+              <p>
+                <strong>20 y 21 de octubre de 2026</strong
+                ><span>Santa Cruz de la Sierra · Bolivia</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="registration-grid">
+            <div class="registration-options">
+              <!-- Tarjeta de inscripción: formulario para oyentes externos. -->
+              <article
+                class="registration-card registration-card--external"
+                aria-labelledby="externos-title"
+              >
+                <div class="registration-card__heading">
+                  <div class="registration-icon" aria-hidden="true">
+                    <i class="fa-solid fa-ticket"></i>
+                  </div>
+                  <div>
+                    <p class="registration-eyebrow">Inscripción general</p>
+                    <h3 class="registration-card__title" id="externos-title">
+                      Oyentes externos
+                    </h3>
+                  </div>
+                </div>
+
+                <p class="registration-card__text">
+                  Forma parte de las Jornadas Internacionales de Investigación.
+                  Este formulario está dirigido a asistentes externos que desean
+                  participar como oyentes.
+                </p>
+
+                <div class="registration-price">
+                  <p class="registration-price__label">
+                    Costo de inscripción<span>Participación como oyente</span>
+                  </p>
+                  <p
+                    class="registration-price__amount"
+                    aria-label="50 bolivianos"
+                  >
+                    <span>Bs</span>50
+                  </p>
+                </div>
+
+                <ul class="registration-facts">
+                  <li>
+                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i
+                    ><span>Modalidad presencial · Sede Santa Cruz</span>
+                  </li>
+                  <li>
+                    <i
+                      class="fa-regular fa-calendar-check"
+                      aria-hidden="true"
+                    ></i
+                    ><span
+                      >Inscripciones del
+                      <strong>1 al 17 de octubre de 2026</strong></span
+                    >
+                  </li>
+                </ul>
+
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScndxpmCZmyy1yIKprvRGJAEyfsv9sznDmrbE2otg4b8fcQFQ/viewform?usp=dialog"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="registration-button registration-button--form"
+                  aria-describedby="form-new-tab"
+                >
+                  Completar formulario de inscripción
+                  <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true"
+                  ></i>
+                </a>
+                <p id="form-new-tab" class="registration-note">
+                  Formulario para oyentes externos. Se abre en una nueva
+                  pestaña.
+                </p>
+              </article>
+
+              <!-- La gratuidad corresponde a la indicación recibida para estudiantes. -->
+              <article
+                class="registration-card registration-students"
+                aria-labelledby="estudiantes-title"
+              >
+                <div class="registration-icon" aria-hidden="true">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="registration-students__content">
+                  <h3
+                    class="registration-students__title"
+                    id="estudiantes-title"
+                  >
+                    Estudiantes
+                  </h3>
+                  <p class="registration-students__text">
+                    Participación gratuita como oyentes.
+                  </p>
+                </div>
+                <span class="registration-students__badge">Sin costo</span>
+              </article>
+            </div>
+
+            <!-- Tarjeta institucional y contacto: solo UPDS. -->
+            <aside
+              class="registration-card registration-contact"
+              aria-labelledby="contacto-title"
+            >
+              <div class="registration-contact__header">
+                <div class="registration-contact__icon" aria-hidden="true">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                <p class="registration-eyebrow">Información e inscripciones</p>
+                <h3 class="registration-contact__title" id="contacto-title">
+                  ¿Tienes alguna consulta?
+                </h3>
+                <p class="registration-contact__subtitle">
+                  Comunícate con la UPDS para conocer los detalles de tu
+                  inscripción y las indicaciones de pago.
+                </p>
+              </div>
+
+              <div class="registration-contact__body">
+                <div class="registration-organizer">
+                  <img src="img/logo.png" alt="UPDS Investiga" loading="lazy" />
+                  <div>
+                    <p class="registration-organizer__name">
+                      Universidad Privada Domingo Savio
+                    </p>
+                    <p class="registration-organizer__details">
+                      Facultad de Ciencias Sociales<br />Sede Santa Cruz
+                    </p>
+                  </div>
+                </div>
+
+                <div class="registration-phone">
+                  <p class="registration-phone__label">Contacto por WhatsApp</p>
+                  <p class="registration-phone__number">+591 72121664</p>
+                </div>
+
+                <a
+                  href="https://wa.me/59172121664?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20la%20inscripci%C3%B3n%20como%20oyente%20en%20UPDS%20Investiga%202026%2C%20II%20versi%C3%B3n."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="registration-button registration-button--whatsapp"
+                  aria-describedby="whatsapp-new-tab"
+                >
+                  <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                  Consultar por WhatsApp
+                </a>
+                <p id="whatsapp-new-tab" class="registration-note">
+                  Abre WhatsApp para iniciar tu consulta.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <div id="footer-placeholder" class="mt-auto"></div>
+    </div>
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/layout.js"></script>
+  </body>
+</html>
