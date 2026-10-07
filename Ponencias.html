@@ -67,6 +67,49 @@
         outline: 3px solid #087faa;
         outline-offset: 3px;
       }
+
+      /* Estilos para los nuevos botones de filtro */
+      .custom-filter-btn {
+        background-color: #fff;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 10px 16px;
+        min-width: 110px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        color: #334155;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      }
+      .custom-filter-btn:hover {
+        border-color: #009cb8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 156, 184, 0.15);
+      }
+      .custom-filter-btn.active {
+        background-color: #009cb8;
+        border-color: #009cb8;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 156, 184, 0.3);
+      }
+      .custom-filter-btn__main {
+        font-size: 1.2rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 4px;
+      }
+      .custom-filter-btn__sub {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
       @media (max-width: 575.98px) {
         #speakerModal .modal-dialog {
           width: calc(100% - 16px);
@@ -80,6 +123,16 @@
         }
         #speakerModal .speaker-modal__img {
           max-height: 280px;
+        }
+        .custom-filter-btn {
+          min-width: 90px;
+          padding: 8px 12px;
+        }
+        .custom-filter-btn__main {
+          font-size: 1.1rem;
+        }
+        .filter-separator {
+          width: 80%;
         }
       }
     </style>
@@ -104,72 +157,78 @@
 
         <div class="container my-5">
           <!-- CONTENEDOR DE FILTROS DOBLES -->
-          <div class="d-flex flex-column align-items-center mb-5 gap-3">
+          <div class="d-flex flex-column align-items-center mb-5">
             <!-- FILTROS POR FECHA -->
-            <div
-              class="date-tabs ponencias-tabs w-100 d-flex justify-content-center flex-wrap gap-2"
-            >
+            <div class="d-flex justify-content-center flex-wrap gap-4 w-100">
               <button
                 type="button"
-                class="date-tab active"
+                class="custom-filter-btn active"
                 data-filter-type="date"
                 onclick="setFilter('date', 'all', this)"
               >
-                <span class="date-tab__day">Todos</span>
+                <span class="custom-filter-btn__main">Todos</span>
+                <span class="custom-filter-btn__sub">Los días</span>
               </button>
               <button
                 type="button"
-                class="date-tab"
+                class="custom-filter-btn"
                 data-filter-type="date"
                 onclick="setFilter('date', '20', this)"
               >
-                <span class="date-tab__day">20</span>
+                <span class="custom-filter-btn__main">20</span>
+                <span class="custom-filter-btn__sub">OCTUBRE 2026</span>
               </button>
               <button
                 type="button"
-                class="date-tab"
+                class="custom-filter-btn"
                 data-filter-type="date"
                 onclick="setFilter('date', '21', this)"
               >
-                <span class="date-tab__day">21</span>
+                <span class="custom-filter-btn__main">21</span>
+                <span class="custom-filter-btn__sub">OCTUBRE 2026</span>
               </button>
             </div>
 
+            <!-- SEPARADOR ELEGANTE -->
+            <hr class="filter-separator my-4" />
+
             <!-- FILTROS POR HORARIO -->
-            <div
-              class="date-tabs ponencias-tabs w-100 d-flex justify-content-center flex-wrap gap-2"
-            >
+            <div class="d-flex justify-content-center flex-wrap gap-4 w-100">
               <button
                 type="button"
-                class="date-tab active"
+                class="custom-filter-btn active"
                 data-filter-type="time"
                 onclick="setFilter('time', 'all', this)"
               >
-                <span class="date-tab__day">Todos</span>
+                <span class="custom-filter-btn__main">Todos</span>
+                <span class="custom-filter-btn__sub">Horarios</span>
               </button>
               <button
                 type="button"
-                class="date-tab"
+                class="custom-filter-btn"
                 data-filter-type="time"
                 onclick="setFilter('time', 'manana', this)"
               >
-                <span class="date-tab__day">Mañana</span>
+                <span class="custom-filter-btn__main">Mañana</span>
+                <span class="custom-filter-btn__sub">Sesión</span>
               </button>
               <button
                 type="button"
-                class="date-tab"
+                class="custom-filter-btn"
                 data-filter-type="time"
                 onclick="setFilter('time', 'tarde', this)"
               >
-                <span class="date-tab__day">Tarde</span>
+                <span class="custom-filter-btn__main">Tarde</span>
+                <span class="custom-filter-btn__sub">Sesión</span>
               </button>
               <button
                 type="button"
-                class="date-tab"
+                class="custom-filter-btn"
                 data-filter-type="time"
                 onclick="setFilter('time', 'noche', this)"
               >
-                <span class="date-tab__day">Noche</span>
+                <span class="custom-filter-btn__main">Noche</span>
+                <span class="custom-filter-btn__sub">Sesión</span>
               </button>
             </div>
           </div>
@@ -682,7 +741,6 @@
       ];
 
       // Fotos: nombre exacto del ponente sin tratamiento, con espacios y tildes.
-      // Ejemplo: img/ponencias/Paola Alemán Valdivia.jpg
       function trySpeakerImage(img) {
         const speaker = speakers[Number(img.dataset.speakerIndex)];
         const extensions = ["jpg", "png", "jpeg", "webp"];
