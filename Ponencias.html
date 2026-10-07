@@ -103,38 +103,75 @@
         </section>
 
         <div class="container my-5">
-          <!-- FILTROS POR SESIÓN -->
-          <div class="date-tabs ponencias-tabs mb-5">
-            <button
-              type="button"
-              class="date-tab date-tab--all active"
-              onclick="filterPonencias('all', this)"
+          <!-- CONTENEDOR DE FILTROS DOBLES -->
+          <div class="d-flex flex-column align-items-center mb-5 gap-3">
+            <!-- FILTROS POR FECHA -->
+            <div
+              class="date-tabs ponencias-tabs w-100 d-flex justify-content-center flex-wrap gap-2"
             >
-              <span class="date-tab__day">Todas</span>
-            </button>
+              <button
+                type="button"
+                class="date-tab active"
+                data-filter-type="date"
+                onclick="setFilter('date', 'all', this)"
+              >
+                <span class="date-tab__day">Todos</span>
+              </button>
+              <button
+                type="button"
+                class="date-tab"
+                data-filter-type="date"
+                onclick="setFilter('date', '20', this)"
+              >
+                <span class="date-tab__day">20</span>
+              </button>
+              <button
+                type="button"
+                class="date-tab"
+                data-filter-type="date"
+                onclick="setFilter('date', '21', this)"
+              >
+                <span class="date-tab__day">21</span>
+              </button>
+            </div>
 
-            <button
-              type="button"
-              class="date-tab"
-              onclick="filterPonencias('manana', this)"
+            <!-- FILTROS POR HORARIO -->
+            <div
+              class="date-tabs ponencias-tabs w-100 d-flex justify-content-center flex-wrap gap-2"
             >
-              <span class="date-tab__day">Mañana</span>
-            </button>
-
-            <button
-              type="button"
-              class="date-tab"
-              onclick="filterPonencias('tarde', this)"
-            >
-              <span class="date-tab__day">Tarde</span>
-            </button>
-            <button
-              type="button"
-              class="date-tab"
-              onclick="filterPonencias('noche', this)"
-            >
-              <span class="date-tab__day">Noche</span>
-            </button>
+              <button
+                type="button"
+                class="date-tab active"
+                data-filter-type="time"
+                onclick="setFilter('time', 'all', this)"
+              >
+                <span class="date-tab__day">Todos</span>
+              </button>
+              <button
+                type="button"
+                class="date-tab"
+                data-filter-type="time"
+                onclick="setFilter('time', 'manana', this)"
+              >
+                <span class="date-tab__day">Mañana</span>
+              </button>
+              <button
+                type="button"
+                class="date-tab"
+                data-filter-type="time"
+                onclick="setFilter('time', 'tarde', this)"
+              >
+                <span class="date-tab__day">Tarde</span>
+              </button>
+              <button
+                type="button"
+                class="date-tab"
+                data-filter-type="time"
+                onclick="setFilter('time', 'noche', this)"
+              >
+                <span class="date-tab__day">Noche</span>
+              </button>
+            </div>
           </div>
 
           <!-- TODAS LAS PONENCIAS -->
@@ -215,7 +252,11 @@
     <script>
       const fallbackImg = "img/logo.png";
       const fallbackFlag = "img/banderas/bolivia.png";
-      let currentFilter = "all";
+
+      // Variables para manejar el filtro dual
+      let currentDateFilter = "all";
+      let currentTimeFilter = "all";
+
       let speakerModal = null;
 
       const speakers = [
@@ -223,6 +264,7 @@
           name: "Héctor Horacio Vitale",
           country: "Argentina",
           flag: "img/banderas/argentina.png",
+          date: "21",
           session: "tarde",
           image: "img/ponencias/Héctor Horacio Vitale.jpg",
           academicTitle: "",
@@ -234,7 +276,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "17:30 - 17:45",
               title:
                 "¿Por qué el Derecho no es ciencia? (Su condición de sociotécnica y su posibilidad como sociotecnología)",
             },
@@ -244,6 +286,7 @@
           name: "Ruth Koria Saracho",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "20",
           session: "tarde",
           image: "img/ponencias/Ruth Koria Saracho.jpg",
           academicTitle: "Médico Cirujano",
@@ -255,7 +298,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "15:00 - 15:20",
               title:
                 "Características sociodemográficas y clínicas, e indicadores de bienestar y autocuidado, en personas con VIH en seguimiento en el SSU",
             },
@@ -265,6 +308,7 @@
           name: "José Darío Pérez Cardozo",
           country: "Paraguay",
           flag: "img/banderas/paraguay.png",
+          date: "20",
           session: "manana",
           image: "img/ponencias/José Darío Pérez Cardozo.jpg",
           academicTitle: "",
@@ -276,7 +320,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "09:40 - 09:55",
               title:
                 "Impacto social y económico de los estudiantes brasileños de Medicina de la UASS en los pequeños contribuyentes del barrio San Luis, San Lorenzo (Paraguay)",
             },
@@ -286,6 +330,7 @@
           name: "Dra. Wara Salinas",
           country: "Chile",
           flag: "img/banderas/chile.png",
+          date: "20",
           session: "tarde",
           image: "img/ponencias/Wara Salinas.jpg",
           academicTitle: "Médica cirujana",
@@ -297,17 +342,17 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "15:40 - 15:55",
               title:
                 "Rol de las vitaminas para regular la neuroinflamación presente en modelos de autismo",
             },
           ],
         },
-
         {
           name: "Elisabeth Viviana Lucero Baldevenites",
           country: "España",
           flag: "img/banderas/espana.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Elisabeth Viviana Lucero Baldevenites.jpg",
           academicTitle: "",
@@ -319,7 +364,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "21:15 - 21:30",
               title:
                 "Ingeniería de los materiales como motor de innovación: nuevas tendencias en materiales para una construcción sustentable",
             },
@@ -329,6 +374,7 @@
           name: "Jhoan Alfredo Plua Montiel",
           country: "Ecuador",
           flag: "img/banderas/ecuador.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Jhoan Alfredo Plua Montiel.jpg",
           academicTitle: "",
@@ -340,7 +386,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "19:35 - 19:50",
               title:
                 "Valorización integral de subproductos del cacao (Theobroma cacao L.) a través del desarrollo de procesos biotecnológicos para la obtención de bioproductos y biomateriales de interés agroalimentario",
             },
@@ -350,6 +396,7 @@
           name: "Gabriela Lourdes Vélez Bermello",
           country: "Ecuador",
           flag: "img/banderas/ecuador.png",
+          date: "21",
           session: "manana",
           image: "img/ponencias/Gabriela Lourdes Vélez Bermello.jpg",
           academicTitle: "",
@@ -361,7 +408,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "09:00 - 09:15",
               title:
                 "Percepción del riesgo de desinformación y preparación organizacional: protocolos, rutas de reporte y capacitación",
             },
@@ -371,6 +418,7 @@
           name: "Marcial Villarroel Siles",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "21",
           session: "manana",
           image: "img/ponencias/Marcial Villarroel Siles.jpg",
           academicTitle:
@@ -383,7 +431,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "08:45 - 09:00",
               title:
                 'Crisis ontológica de los modelos educativos mecanicistas: hacia una reestructuración epistémica basada en la teoría del "universo consciente"',
             },
@@ -393,6 +441,7 @@
           name: "Edgar Meza Mescco",
           country: "Perú",
           flag: "img/banderas/peru.png",
+          date: "20",
           session: "manana",
           image: "img/ponencias/Edgar Meza Mescco.jpg",
           academicTitle: "",
@@ -404,7 +453,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "10:50 - 11:05",
               title:
                 "Estructura de costos operativos en la industria cementera: revisión sistemática de literatura",
             },
@@ -414,6 +463,7 @@
           name: "José Turpín Saorín",
           country: "España",
           flag: "img/banderas/espana.png",
+          date: "21",
           session: "manana",
           image: "img/ponencias/José Turpín Saorín.jpg",
           academicTitle: "",
@@ -425,7 +475,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "09:30 - 09:45",
               title:
                 "Nuevos retos… y la complejidad para «conectar» la IA en la escuela del presente",
             },
@@ -435,6 +485,7 @@
           name: "Maddela Naga Raju",
           country: "Ecuador",
           flag: "img/banderas/ecuador.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Maddela Naga Raju.jpg",
           academicTitle: "",
@@ -446,7 +497,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "20:25 - 20:40",
               title:
                 "Biodegradación de hidrocarburos de petróleo en suelos contaminados de la Amazonía ecuatoriana mediante un cultivo mixto de bacterias y hongos autóctonos",
             },
@@ -456,6 +507,7 @@
           name: "Edson Huanca Cayoja",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Edson Huanca Cayoja.jpg",
           academicTitle: "Magíster en Administración de Negocios",
@@ -467,7 +519,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "20:40 - 21:00",
               title:
                 "Inteligencia de riesgos aplicada al transporte ferroviario de granos",
             },
@@ -477,6 +529,7 @@
           name: "Rossana Arguello Silva",
           country: "Paraguay",
           flag: "img/banderas/paraguay.png",
+          date: "21",
           session: "manana",
           image: "img/ponencias/Rossana Arguello Silva.jpg",
           academicTitle: "",
@@ -488,7 +541,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              time: "11:15 - 11:30",
               title:
                 "Impacto de la tutoría pedagógica en el rendimiento académico de los estudiantes de primer año de la Universidad Autónoma San Sebastián (UASS)",
             },
@@ -498,6 +551,7 @@
           name: "José Eduardo Zawadsky",
           country: "Chile",
           flag: "img/banderas/chile.png",
+          date: "21",
           session: "tarde",
           image: "img/ponencias/José Eduardo Zawadsky.jpg",
           academicTitle: "",
@@ -509,7 +563,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "16:30 - 16:45",
               title:
                 "Implementación de políticas de promoción de la explotación de tierras raras en Chile",
             },
@@ -519,6 +573,7 @@
           name: "Luis Humberto Vásquez Cortez",
           country: "Ecuador",
           flag: "img/banderas/ecuador.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Luis Humberto Vásquez Cortez.jpg",
           academicTitle: "",
@@ -530,7 +585,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "21:00 - 21:15",
               title:
                 "Fermentación dirigida con microorganismos y extractos naturales de frutas para la reducción de cadmio en el cacao (Theobroma cacao L.)",
             },
@@ -540,6 +595,7 @@
           name: "Guillermo Julio Salvatierra Reyes",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "21",
           session: "tarde",
           image: "img/ponencias/Guillermo Julio Salvatierra Reyes.jpg",
           academicTitle: "Estudiante de Derecho",
@@ -551,7 +607,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "16:00 - 16:15",
               title:
                 "La Inteligencia Artificial y su posible aplicación en la administración de justicia en Bolivia",
             },
@@ -561,6 +617,7 @@
           name: "Róssely Royo Algarañaz",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "21",
           session: "tarde",
           image: "img/ponencias/Róssely Royo Algarañaz.jpg",
           academicTitle: "Estudiante de Derecho",
@@ -572,7 +629,7 @@
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Tarde",
-              time: "Por confirmar",
+              time: "15:45 - 16:00",
               title:
                 "La violencia intrafamiliar en Bolivia: distancia entre el marco jurídico y su aplicación práctica",
             },
@@ -582,7 +639,8 @@
           name: "Paola Alemán Valdivia",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
-          session: "manana",
+          date: "21",
+          session: "noche",
           image: "img/ponencias/Paola Alemán Valdivia.jpg",
           academicTitle: "Licenciada en Psicopedagogía",
           area: "Ciencias Sociales",
@@ -592,8 +650,8 @@
             "Psicopedagoga, Licenciada en Psicopedagogía por la Universidad Privada Domingo Savio (UPDS). Cuenta con diplomados en Docencia Universitaria Basada en Formación por Competencias (2022), Educación Superior y Gestión Académica e Innovación (2024), Innovación Tecnológica en Educación Superior (2024), Acreditación e Investigación Científica en Educación Superior (2025), e Intervención y Evaluación Psicopedagógica (UAGRM, 2024), además de la Especialidad en Estimulación e Intervención en Educación Especial (UAGRM, 2024). Actualmente cursa la Maestría en Educación Superior orientada a la Investigación e Innovación (UPDS), con perfil de tesis presentado y en espera de corrección para su defensa. Cuenta con publicaciones indexadas en ResearchGate y un artículo en revisión para la Revista Taikuere sobre competencias digitales y rendimiento académico universitario.",
           schedules: [
             {
-              sessionLabel: "21 de octubre de 2026 · Mañana",
-              time: "Por confirmar",
+              sessionLabel: "21 de octubre de 2026 · Noche (Sesión de pósters)",
+              time: "20:00 - 21:30",
               title:
                 "Competencias digitales y rendimiento académico en estudiantes de nuevo ingreso de la Facultad de Ciencias Sociales",
             },
@@ -603,6 +661,7 @@
           name: "Luis Cristian Torrez La Fuente",
           country: "Bolivia",
           flag: "img/banderas/bolivia.png",
+          date: "20",
           session: "noche",
           image: "img/ponencias/Luis Cristian Torrez La Fuente.jpg",
           academicTitle: "Ingeniero industrial",
@@ -614,7 +673,7 @@
           schedules: [
             {
               sessionLabel: "20 de octubre de 2026 · Noche",
-              time: "Por confirmar",
+              time: "19:15 - 19:35",
               title:
                 "Modelado optimizado de una micro-planta de drones de reforestación: parámetros operativos para la certificación y obtención de bonos de carbono",
             },
@@ -655,9 +714,12 @@
       }
 
       function speakerMatchesFilter(speaker) {
-        if (currentFilter === "all") return true;
+        const matchDate =
+          currentDateFilter === "all" || speaker.date === currentDateFilter;
+        const matchTime =
+          currentTimeFilter === "all" || speaker.session === currentTimeFilter;
 
-        return speaker.session === currentFilter;
+        return matchDate && matchTime;
       }
 
       function getCardTitle(speaker) {
@@ -707,8 +769,12 @@
 
       function renderSpeakers() {
         const regularGrid = document.getElementById("regular-speakers-grid");
-
         const visibleSpeakers = speakers.filter(speakerMatchesFilter);
+
+        if (visibleSpeakers.length === 0) {
+          regularGrid.innerHTML = `<div class="col-12 text-center text-muted my-5">No se encontraron ponencias para los filtros seleccionados.</div>`;
+          return;
+        }
 
         regularGrid.innerHTML = visibleSpeakers
           .map((speaker) => {
@@ -720,14 +786,20 @@
           .join("");
       }
 
-      function filterPonencias(session, btn) {
-        currentFilter = session;
-
-        document
-          .querySelectorAll(".ponencias-tabs .date-tab")
-          .forEach((tab) => {
-            tab.classList.remove("active");
-          });
+      function setFilter(type, value, btn) {
+        if (type === "date") {
+          currentDateFilter = value;
+          // Remover activo de los botones de fecha
+          document
+            .querySelectorAll('button[data-filter-type="date"]')
+            .forEach((tab) => tab.classList.remove("active"));
+        } else if (type === "time") {
+          currentTimeFilter = value;
+          // Remover activo de los botones de tiempo
+          document
+            .querySelectorAll('button[data-filter-type="time"]')
+            .forEach((tab) => tab.classList.remove("active"));
+        }
 
         btn.classList.add("active");
         renderSpeakers();
