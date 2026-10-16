@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="es" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Notas</title>
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" type="image/png" href="img/logo_32x32.png" />
+
+    <style>
+      /* Estilos exclusivos de esta página */
+      body.page-notas {
+        --note-bg: #fbfdfe;
+        --note-border: #d3e5ee;
+        --note-soft: #e4f2f8;
+        --note-title: #245f7a;
+        --note-text: #4a6072;
+        --note-accent: #2f7f9e;
+        --note-accent-dark: #256a85;
+
+        background: #dce9f1;
+        color: #0f2438;
+      }
+
+      .page-notas .page-wrap {
+        background: transparent;
+      }
+
+      /* Banner (igual que Galería) */
+      .page-notas .hero-strip {
+        position: relative;
+        left: auto;
+        right: auto;
+        display: flex;
+        height: 300px;
+        min-height: 190px;
+        margin-left: 25px;
+        margin-right: 25px;
+        overflow: hidden;
+        border-radius: 0 0 28px 28px;
+        background: #087faa;
+        box-shadow: 0 16px 35px rgba(6, 61, 87, 0.14);
+      }
+
+      .page-notas .hero-strip__media {
+        position: relative;
+        flex: 0 0 58%;
+        min-width: 0;
+        background: linear-gradient(135deg, #07506d, #27aae1);
+      }
+
+      .page-notas .hero-strip__media video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .page-notas .hero-strip__panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        padding: 2.2rem 2.4rem;
+        background: linear-gradient(120deg, #07506d, #27aae1);
+      }
+
+      .page-notas .hero-strip__title {
+        margin: 0;
+        color: #fff;
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 800;
+      }
+
+      /* Introducción */
+      .page-notas .notes-intro {
+        max-width: 760px;
+        margin: 0 auto 2.2rem;
+        text-align: center;
+        color: #07506d;
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.7;
+      }
+
+      /* Cuadrícula de notas */
+      .page-notas .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+        gap: 1.25rem;
+      }
+
+      .page-notas .note-card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid var(--note-border);
+        border-radius: 18px;
+        background: var(--note-bg);
+        box-shadow: 0 8px 24px rgba(15, 36, 56, 0.06);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+
+      .page-notas .note-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(15, 36, 56, 0.1);
+      }
+
+      /* Imagen de la nota (si falla, queda el fondo suave con el icono) */
+      .page-notas .note-card__media,
+      .page-notas .note-modal__media {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(135deg, #bfdfec, #e3f1f7);
+      }
+
+      .page-notas .note-card__media {
+        aspect-ratio: 2 / 1;
+      }
+
+      .page-notas .note-modal__media {
+        aspect-ratio: 16 / 8;
+      }
+
+      .page-notas .note-card__media::before,
+      .page-notas .note-modal__media::before {
+        content: "📰";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.6rem;
+        opacity: 0.7;
+      }
+
+      .page-notas .note-card__media img,
+      .page-notas .note-modal__media img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .page-notas .note-card__media img {
+        transition: transform 0.4s;
+      }
+
+      .page-notas .note-card:hover .note-card__media img {
+        transform: scale(1.04);
+      }
+
+      .page-notas .note-card__media img[hidden],
+      .page-notas .note-modal__media img[hidden],
+      .page-notas .note-modal__media[hidden] {
+        display: none !important;
+      }
+
+      /* En el modal la imagen se muestra completa, sin recortes */
+      .page-notas .note-modal__media.has-image {
+        aspect-ratio: auto;
+      }
+
+      .page-notas .note-modal__media.has-image::before {
+        display: none;
+      }
+
+      .page-notas .note-modal__media.has-image img {
+        position: static;
+        width: 100%;
+        height: auto;
+        max-height: min(55vh, 420px);
+        object-fit: contain;
+      }
+
+      .page-notas .note-card__body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 1.1rem 1.2rem 1.2rem;
+      }
+
+      .page-notas .note-card__title {
+        display: -webkit-box;
+        margin: 0 0 0.55rem;
+        overflow: hidden;
+        color: var(--note-title);
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.35;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+      .page-notas .note-card__summary {
+        display: -webkit-box;
+        margin: 0 0 1rem;
+        overflow: hidden;
+        color: var(--note-text);
+        font-size: 0.92rem;
+        line-height: 1.6;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+
+      /* Fila de acciones: "Leer más" a la izquierda, "Ir al post" a la derecha */
+      .page-notas .note-card__actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        margin-top: auto;
+      }
+
+      .page-notas .note-card__more {
+        padding: 0.5rem 0;
+        border: 0;
+        background: none;
+        color: var(--note-accent-dark);
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .page-notas .note-card__more:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* Botón cuadrado para ir al post original */
+      .page-notas .note-btn-post {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-left: auto;
+        padding: 0.5rem 0.95rem;
+        border-radius: 4px;
+        background: var(--note-accent);
+        color: #fff;
+        font-size: 0.88rem;
+        font-weight: 700;
+        line-height: 1.2;
+        text-decoration: none;
+        transition: background 0.2s;
+      }
+
+      .page-notas .note-btn-post:hover {
+        background: var(--note-accent-dark);
+        color: #fff;
+      }
+
+      .page-notas a:focus-visible,
+      .page-notas button:focus-visible {
+        outline: 3px solid #27aae1;
+        outline-offset: 3px;
+      }
+
+      /* Modal con el texto completo */
+      .page-notas .note-modal {
+        width: min(640px, calc(100% - 32px));
+        max-width: none;
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
+        padding: 0;
+        overflow: hidden;
+        border: 0;
+        border-radius: 20px;
+        background: var(--note-bg);
+        color: var(--note-text);
+        box-shadow: 0 24px 60px rgba(6, 24, 36, 0.35);
+      }
+
+      /* Nunca debe mostrarse si el diálogo está cerrado (igual que el visor de Galería) */
+      .page-notas .note-modal:not([open]) {
+        display: none !important;
+      }
+
+      .page-notas .note-modal[open] {
+        position: fixed;
+        inset: 0;
+        height: fit-content;
+        margin: auto;
+        animation: note-modal-in 0.22s ease-out;
+      }
+
+      .page-notas .note-modal::backdrop {
+        background: rgba(6, 24, 36, 0.55);
+      }
+
+      @keyframes note-modal-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.98);
+        }
+
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .page-notas .note-modal__scroll {
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .page-notas .note-modal__close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 1px solid var(--note-border);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.94);
+        color: var(--note-title);
+        font-size: 1.7rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .page-notas .note-modal__body {
+        padding: 1.5rem 1.6rem 1.6rem;
+      }
+
+      .page-notas .note-modal__title {
+        margin: 0 3rem 0.9rem 0;
+        color: var(--note-title);
+        font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .page-notas .note-modal__text p {
+        margin: 0 0 0.85rem;
+        font-size: 0.98rem;
+        line-height: 1.7;
+      }
+
+      .page-notas .note-modal__footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1.4rem;
+        padding-top: 1.1rem;
+        border-top: 1px solid var(--note-border);
+      }
+
+      .page-notas .note-modal__footer .note-btn-post {
+        margin-left: 0;
+      }
+
+      @media (max-width: 991.98px) {
+        .page-notas .hero-strip {
+          flex-direction: column;
+          height: auto;
+          min-height: 0;
+          margin-left: 16px;
+          margin-right: 16px;
+        }
+
+        .page-notas .hero-strip__media {
+          flex: none;
+          height: 210px;
+          min-height: 0;
+        }
+
+        .page-notas .hero-strip__panel {
+          padding: 1.4rem;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        .page-notas .notes-grid {
+          gap: 1rem;
+        }
+
+        .page-notas .note-modal {
+          width: calc(100% - 24px);
+          max-height: calc(100vh - 24px);
+          max-height: calc(100dvh - 24px);
+          border-radius: 16px;
+        }
+
+        .page-notas .note-modal__scroll {
+          max-height: calc(100vh - 24px);
+          max-height: calc(100dvh - 24px);
+        }
+
+        .page-notas .note-modal__body {
+          padding: 1.2rem 1.15rem 1.3rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .page-notas .note-card,
+        .page-notas .note-card__media img,
+        .page-notas .note-btn-post {
+          transition: none;
+        }
+
+        .page-notas .note-card:hover {
+          transform: none;
+        }
+
+        .page-notas .note-card:hover .note-card__media img {
+          transform: none;
+        }
+
+        .page-notas .note-modal[open] {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="page-notas d-flex flex-column h-100">
+    <div class="page-wrap d-flex flex-column min-vh-100">
+      <div class="bg-right d-none d-lg-block" aria-hidden="true"></div>
+
+      <div id="header-placeholder"></div>
+
+      <main class="flex-shrink-0 content-padding page-content">
+        <section class="hero-strip my-4" aria-labelledby="notes-title">
+          <div class="hero-strip__media">
+            <video
+              id="notes-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-hidden="true"
+            >
+              <source src="media/Technology Background.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          <div class="hero-strip__panel">
+            <h1 class="hero-strip__title" id="notes-title">Notas</h1>
+          </div>
+        </section>
+
+        <div class="container my-5">
+          <div class="notes-grid" id="notes-list">
+            <!--
+            Para agregar una nota nueva, copia el bloque article completo
+            y pégalo AQUÍ ARRIBA (la nota más reciente va primero).
+            Cambia: la imagen (src), el título, el resumen, el texto completo
+            (dentro del template) y el enlace del botón "Ir al post" (href).
+
+            <article class="note-card">
+              <div class="note-card__media">
+                <img src="img/notas/nota-nueva.jpg" alt="" loading="lazy"/>
+              </div>
+
+              <div class="note-card__body">
+                <h2 class="note-card__title">Título de la nota</h2>
+                <p class="note-card__summary">Resumen corto de la nota.</p>
+
+                <div class="note-card__actions">
+                  <button type="button" class="note-card__more" aria-haspopup="dialog">
+                    Leer más
+                  </button>
+                  <a
+                    class="note-btn-post"
+                    href="URL_DE_LA_PUBLICACION"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ir al post
+                  </a>
+                </div>
+              </div>
+
+              <template class="note-card__full">
+                <p>Primer párrafo del texto completo.</p>
+                <p>Segundo párrafo del texto completo.</p>
+              </template>
+            </article>
+          -->
+
+            <!-- Nota 2 -->
+            <article class="note-card">
+              <!-- REEMPLAZAR: imagen por la de la publicación real -->
+              <div class="note-card__media">
+                <img src="img/notas/Nota-02.jpeg" alt="" loading="lazy" />
+              </div>
+
+              <div class="note-card__body">
+                <h2 class="note-card__title">
+                  UPDS Investiga 2026 reunirá a 54 ponentes de siete países en
+                  una agenda internacional de investigación
+                </h2>
+                <p class="note-card__summary">
+                  Las jornadas internacionales se desarrollarán el 20 y 21 de
+                  octubre y abordarán investigaciones de cinco áreas del
+                  conocimiento, con participación de académicos de Bolivia y
+                  otros seis países.
+                </p>
+
+                <div class="note-card__actions">
+                  <button
+                    type="button"
+                    class="note-card__more"
+                    aria-haspopup="dialog"
+                  >
+                    Leer más
+                  </button>
+                  <!-- REEMPLAZAR: enlace por el de la publicación real -->
+                  <a
+                    class="note-btn-post"
+                    href="https://www.upds.edu.bo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ir al post
+                  </a>
+                </div>
+              </div>
+
+              <template class="note-card__full">
+                <p>
+                  La Universidad Privada Domingo Savio (UPDS) se prepara para
+                  vivir las Jornadas Internacionales de Investigación “UPDS
+                  Investiga 2026”, que se desarrollarán el 20 y 21 de octubre
+                  con la participación de 54 ponentes de Bolivia, Ecuador,
+                  Paraguay, Chile, Perú, España y Argentina. El encuentro
+                  reunirá investigaciones en cinco áreas: Ciencias
+                  Empresariales, Ciencias de la Salud, Ingeniería y Tecnología,
+                  Ciencias Sociales y Ciencias Jurídicas, mediante ponencias
+                  orales y sesiones de póster. Un espacio para compartir
+                  conocimiento, generar diálogo académico y fortalecer la
+                  investigación desde una mirada nacional e internacional.
+                </p>
+              </template>
+            </article>
+
+            <!-- Nota 1 -->
+            <article class="note-card">
+              <!-- REEMPLAZAR: imagen por la de la publicación real -->
+              <div class="note-card__media">
+                <img src="img/notas/Nota-01.jpeg" alt="" loading="lazy" />
+              </div>
+
+              <div class="note-card__body">
+                <h2 class="note-card__title">
+                  UPDS Investiga 2026 reunirá investigaciones de siete países en
+                  diversas áreas del conocimiento
+                </h2>
+                <p class="note-card__summary">
+                  Seis de los 54 ponentes que participarán en las jornadas
+                  internacionales presentarán estudios sobre competencias
+                  empresariales, economía, neuroinflamación, bienestar y
+                  atención clínica inclusiva, con representación de Bolivia,
+                  Paraguay, Perú y Chile.
+                </p>
+
+                <div class="note-card__actions">
+                  <button
+                    type="button"
+                    class="note-card__more"
+                    aria-haspopup="dialog"
+                  >
+                    Leer más
+                  </button>
+                  <!-- REEMPLAZAR: enlace por el de la publicación real -->
+                  <a
+                    class="note-btn-post"
+                    href="https://www.upds.edu.bo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Ir al post
+                  </a>
+                </div>
+              </div>
+
+              <template class="note-card__full">
+                <p>
+                  Bolivia y otros seis países se reunirán en las Jornadas
+                  Internacionales de Investigación de la UPDS, los días 20 y 21
+                  de octubre, con la participación de 54 ponentes y trabajos en
+                  cinco áreas: Ciencias Empresariales, Ciencias de la Salud,
+                  Ingeniería y Tecnología, Ciencias Sociales y Ciencias
+                  Jurídicas. La participación boliviana destacará
+                  investigaciones sobre competencias empresariales, bienestar y
+                  autocuidado de personas con VIH, y comunicación clínica
+                  inclusiva para personas con discapacidad auditiva y visual. Un
+                  espacio para compartir resultados, intercambiar perspectivas y
+                  fortalecer la investigación científica desde una mirada
+                  multidisciplinaria e internacional.
+                </p>
+              </template>
+            </article>
+          </div>
+        </div>
+      </main>
+
+      <div id="footer-placeholder" class="mt-auto"></div>
+    </div>
+
+    <!-- Modal con el texto completo de la nota -->
+    <dialog
+      class="note-modal"
+      id="note-modal"
+      aria-labelledby="note-modal-title"
+    >
+      <button
+        type="button"
+        class="note-modal__close"
+        id="note-modal-close"
+        aria-label="Cerrar nota"
+        autofocus
+      >
+        ×
+      </button>
+
+      <div class="note-modal__scroll">
+        <div class="note-modal__media" id="note-modal-media">
+          <img id="note-modal-img" alt="" hidden />
+        </div>
+
+        <div class="note-modal__body">
+          <h2 class="note-modal__title" id="note-modal-title"></h2>
+          <div class="note-modal__text" id="note-modal-text"></div>
+
+          <div class="note-modal__footer">
+            <a
+              class="note-btn-post"
+              id="note-modal-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ir al post
+            </a>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/layout.js"></script>
+
+    <script>
+      (() => {
+        // Si una imagen no carga (o aún no existe), se oculta y queda
+        // visible el fondo suave con el icono, sin imagen rota.
+        document
+          .querySelectorAll(".page-notas .note-card__media img")
+          .forEach((img) => {
+            const hideBroken = () => {
+              img.hidden = true;
+            };
+
+            img.addEventListener("error", hideBroken);
+            if (
+              img.complete &&
+              img.naturalWidth === 0 &&
+              img.getAttribute("src")
+            ) {
+              hideBroken();
+            }
+          });
+
+        // Modal con el texto completo.
+        const list = document.getElementById("notes-list");
+        const modal = document.getElementById("note-modal");
+        const modalTitle = document.getElementById("note-modal-title");
+        const modalText = document.getElementById("note-modal-text");
+        const modalLink = document.getElementById("note-modal-link");
+        const modalMedia = document.getElementById("note-modal-media");
+        const modalImg = document.getElementById("note-modal-img");
+        const modalScroll = modal.querySelector(".note-modal__scroll");
+        const closeButton = document.getElementById("note-modal-close");
+
+        let previousOverflow = "";
+
+        // La imagen aparece cuando termina de cargar; si falla, queda
+        // el fondo suave con el icono.
+        modalImg.addEventListener("load", () => {
+          if (!modal.open) return;
+          modalImg.hidden = false;
+          modalMedia.classList.add("has-image");
+        });
+
+        modalImg.addEventListener("error", () => {
+          modalImg.hidden = true;
+          modalMedia.classList.remove("has-image");
+        });
+
+        list.addEventListener("click", (event) => {
+          const button = event.target.closest(".note-card__more");
+          if (!button || modal.open) return;
+
+          const card = button.closest(".note-card");
+          const title = card.querySelector(".note-card__title");
+          const full = card.querySelector("template.note-card__full");
+          const summary = card.querySelector(".note-card__summary");
+          const post = card.querySelector(".note-btn-post");
+          const image = card.querySelector(".note-card__media img");
+
+          modalTitle.textContent = title ? title.textContent.trim() : "";
+
+          // Texto completo; si faltara, se usa el resumen.
+          modalText.replaceChildren();
+          if (full) {
+            modalText.append(full.content.cloneNode(true));
+          } else if (summary) {
+            const paragraph = document.createElement("p");
+            paragraph.textContent = summary.textContent.trim();
+            modalText.append(paragraph);
+          }
+
+          modalLink.href = post ? post.getAttribute("href") : "#";
+
+          // Imagen: la misma de la tarjeta, completa y sin recortes.
+          const source = image ? image.getAttribute("src") : "";
+          modalMedia.classList.remove("has-image");
+          modalImg.hidden = true;
+          modalImg.alt = image ? image.alt : "";
+          if (source) {
+            modalImg.src = source;
+          } else {
+            modalImg.removeAttribute("src");
+          }
+
+          previousOverflow = document.body.style.overflow;
+          modal.showModal();
+          document.body.style.overflow = "hidden";
+          modalScroll.scrollTop = 0;
+        });
+
+        closeButton.addEventListener("click", () => {
+          modal.close();
+        });
+
+        // Cerrar al pulsar fuera de la nota.
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) modal.close();
+        });
+
+        // Escape también cierra el diálogo nativo.
+        modal.addEventListener("close", () => {
+          document.body.style.overflow = previousOverflow;
+          modalImg.removeAttribute("src");
+          modalImg.hidden = true;
+          modalMedia.classList.remove("has-image");
+          modalText.replaceChildren();
+        });
+
+        // Si el archivo de video falla, queda visible el fondo azul.
+        const video = document.getElementById("notes-video");
+        const videoSource = video.querySelector("source");
+
+        const hideFailedVideo = () => {
+          video.style.display = "none";
+        };
+
+        video.addEventListener("error", hideFailedVideo);
+        videoSource.addEventListener("error", hideFailedVideo);
+        if (video.error) hideFailedVideo();
+      })();
+    </script>
+  </body>
+</html>
