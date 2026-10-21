@@ -57,13 +57,53 @@
         color: #465e6d;
         overflow-wrap: anywhere;
       }
+
+      /* Botón X (arriba a la derecha) */
       #speakerModal .modal-close-x {
         flex-shrink: 0;
+        display: grid;
+        place-items: center;
         width: 40px;
         height: 40px;
         margin-left: 16px;
+        padding: 0;
+        border: 1px solid #d3e5ee;
+        border-radius: 50%;
+        background: #fff;
+        color: #063d57;
+        font-size: 1.7rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #speakerModal .modal-close-x:hover {
+        background: #e4f2f8;
       }
       #speakerModal .modal-close-x:focus-visible {
+        outline: 3px solid #087faa;
+        outline-offset: 3px;
+      }
+
+      /* Botón Cerrar (abajo) */
+      #speakerModal .modal-footer {
+        justify-content: flex-end;
+        padding: 16px 32px;
+        border-top: 1px solid #e3edf3;
+      }
+      #speakerModal .speaker-modal__close-btn {
+        padding: 0.55rem 1.6rem;
+        border: 0;
+        border-radius: 999px;
+        background: #087faa;
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #speakerModal .speaker-modal__close-btn:hover {
+        background: #066a8f;
+      }
+      #speakerModal .speaker-modal__close-btn:focus-visible {
         outline: 3px solid #087faa;
         outline-offset: 3px;
       }
@@ -146,6 +186,12 @@
         #speakerModal .modal-header,
         #speakerModal .modal-body {
           padding: 20px;
+        }
+        #speakerModal .modal-footer {
+          padding: 14px 20px;
+        }
+        #speakerModal .speaker-modal__close-btn {
+          width: 100%;
         }
         #speakerModal .speaker-modal__img {
           max-height: 280px;
@@ -329,6 +375,16 @@
                 <div id="modalSpeakerSchedule"></div>
               </div>
             </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="speaker-modal__close-btn"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       </div>
@@ -625,7 +681,7 @@
           mainTitle:
             "Impacto de la tutoría pedagógica en el rendimiento académico de los estudiantes de primer año de la Universidad Autónoma San Sebastián (UASS)",
           profile:
-            "Docente universitaria, tutora de tesis e investigadora paraguaya, con formación en educación, administración y contabilidad. Cursa el Doctorado en Educación y posee maestrías en Investigación y en Educación Superior, además de especializaciones en Didáctica Superior y Metodología de la Investigación. Desde 2010 ejerce la docencia en institutions como la Universidad del Norte, la Universidad Americana, la Universidad San Sebastián y USIL, así como en el Ministerio de Educación y Ciencias (MEC) de Paraguay. Ha sido distinguida como «Docente Digital ORO» por USIL y como docente destacada por la Universidad del Norte y el MEC.",
+            "Docente universitaria, tutora de tesis e investigadora paraguaya, con formación en educación, administración y contabilidad. Cursa el Doctorado en Educación y posee maestrías en Investigación y en Educación Superior, además de especializaciones en Didáctica Superior y Metodología de la Investigación. Desde 2010 ejerce la docencia en instituciones como la Universidad del Norte, la Universidad Americana, la Universidad San Sebastián y USIL, así como en el Ministerio de Educación y Ciencias (MEC) de Paraguay. Ha sido distinguida como «Docente Digital ORO» por USIL y como docente destacada por la Universidad del Norte y el MEC.",
           schedules: [
             {
               sessionLabel: "21 de octubre de 2026 · Mañana",
@@ -967,20 +1023,20 @@
 
       function renderSpeakers() {
         const regularGrid = document.getElementById("regular-speakers-grid");
-        const visibleSpeakers = speakers.filter(speakerMatchesFilter);
+        const hasVisible = speakers.some(speakerMatchesFilter);
 
-        if (visibleSpeakers.length === 0) {
+        if (!hasVisible) {
           regularGrid.innerHTML = `<div class="col-12 text-center text-muted my-5">No se encontraron ponencias para los filtros seleccionados.</div>`;
           return;
         }
 
-        regularGrid.innerHTML = visibleSpeakers
-          .map((speaker) => {
-            const realIndex = speakers.findIndex(
-              (item) => item.name === speaker.name,
-            );
-            return createRegularCard(speaker, realIndex);
-          })
+        // Se usa el índice real del arreglo, sin buscar por nombre.
+        regularGrid.innerHTML = speakers
+          .map((speaker, index) =>
+            speakerMatchesFilter(speaker)
+              ? createRegularCard(speaker, index)
+              : "",
+          )
           .join("");
       }
 
@@ -1048,6 +1104,9 @@
 
         document.getElementById("modalSpeakerSchedule").innerHTML =
           buildScheduleHtml(speaker);
+
+        // Siempre abrir el modal desde arriba.
+        document.querySelector("#speakerModal .modal-body").scrollTop = 0;
 
         speakerModal.show();
       }
