@@ -158,16 +158,6 @@
         text-align: center;
       }
 
-      .upds-promo__eyebrow {
-        margin: 0 0 0.6rem;
-        color: #6b7e8b;
-        font-size: 0.7rem;
-        font-weight: 600;
-        line-height: 1.5;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-
       .upds-promo__title {
         margin: 0;
         color: #103b53;
@@ -185,16 +175,20 @@
         line-height: 1.7;
       }
 
+      /* Cuadrícula: 2 columnas; si el último video queda solo, se centra */
       .upds-promo__grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 2rem;
+        gap: 2.5rem 2rem;
+        align-items: start;
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
       }
 
       .upds-promo__video {
+        display: flex;
+        flex-direction: column;
         min-width: 0;
         margin: 0;
         border: 0;
@@ -202,10 +196,15 @@
         box-shadow: none;
       }
 
-      /* Si solo hay un video, queda centrado */
-      .upds-promo__video:only-child {
+      .upds-promo__video:only-child,
+      .upds-promo__video:last-child:nth-child(odd) {
         grid-column: 1 / -1;
         justify-self: center;
+        width: calc(50% - 1rem);
+        min-width: 0;
+      }
+
+      .upds-promo__video:only-child {
         width: 100%;
         max-width: 680px;
       }
@@ -218,7 +217,7 @@
         object-fit: contain;
         border: 0;
         border-radius: 14px;
-        background: #fff;
+        background: #0f2438;
       }
 
       .upds-promo__player:focus-visible {
@@ -228,26 +227,27 @@
 
       .upds-promo__caption {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 0.35rem 1rem;
+        flex-direction: column;
+        gap: 0.4rem;
         margin: 0;
-        padding: 1rem 0 0;
+        padding: 1rem 0.15rem 0;
         border: 0;
         background: transparent;
-        color: #284759;
+      }
+
+      .upds-promo__caption-title {
+        margin: 0;
+        color: #103b53;
+        font-size: 1.05rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
+      .upds-promo__caption-text {
+        margin: 0;
+        color: #5c6e7a;
         font-size: 0.9rem;
-        line-height: 1.5;
-      }
-
-      .upds-promo__caption strong {
-        font-weight: 600;
-      }
-
-      .upds-promo__caption span {
-        color: #72818b;
-        font-size: 0.8rem;
+        line-height: 1.6;
       }
 
       .hero-main .hero-main__edition {
@@ -296,6 +296,12 @@
 
         .upds-promo__grid {
           grid-template-columns: minmax(0, 1fr);
+          gap: 2rem;
+        }
+
+        .upds-promo__video:only-child,
+        .upds-promo__video:last-child:nth-child(odd) {
+          width: 100%;
         }
 
         .upds-promo__player {
@@ -384,26 +390,156 @@
           </a>
         </section>
 
-        <!-- NUEVO: VIDEOS PROMOCIONALES, después de las tarjetas -->
+        <!-- VIDEOS PROMOCIONALES, después de las tarjetas -->
         <section class="upds-promo" aria-labelledby="promo-title">
           <header class="upds-promo__header">
-            <div>
-              <h2 id="promo-title" class="upds-promo__title">
-                Videos promocionales
-              </h2>
-            </div>
+            <h2 id="promo-title" class="upds-promo__title">
+              Videos promocionales
+            </h2>
             <p class="upds-promo__intro">
               Conoce nuestra segunda versión y sé parte del encuentro.
             </p>
           </header>
 
+          <!--
+            Archivos: media/video/video-01.mp4 hasta video-05.mp4
+            Para añadir más videos, duplica un figure dentro de la grilla.
+          -->
           <div class="upds-promo__grid">
-            <!--
-              Coloca tu archivo MP4 en la ruta del source.
-              La precarga permite mostrar el primer fotograma cuando esté disponible.
-              Si el archivo comienza en negro, puedes añadir una captura mediante poster.
-              Para añadir más videos, duplica este figure dentro de la grilla.
-            -->
+            <!-- Video 1 -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Video promocional: Luis Cristian Torrez La Fuente"
+              >
+                <source src="media/video/video-01.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/video/video-01.mp4">Abrir el video.</a>
+              </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  Conocé a nuestros investigadores y sé parte de este encuentro
+                </h3>
+                <p class="upds-promo__caption-text">
+                  El docente Luis Cristian Torrez La Fuente presentará “Modelado
+                  optimizado de una micro-planta de drones de reforestación:
+                  parámetros operativos para la certificación y obtención de
+                  bonos de carbono”, una investigación que conecta tecnología,
+                  reforestación y desarrollo sostenible.
+                </p>
+              </figcaption>
+            </figure>
+
+            <!-- Video 2 -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Video promocional: Omar Quiñones"
+              >
+                <source src="media/video/video-02.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/video/video-02.mp4">Abrir el video.</a>
+              </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  La investigación también transforma la mirada sobre nuestra
+                  sociedad
+                </h3>
+                <p class="upds-promo__caption-text">
+                  Omar Quiñones, docente de la Facultad de Ciencias Sociales,
+                  participará en UPDS Investiga 2026, un espacio que conecta
+                  conocimientos y perspectivas para comprender los desafíos de
+                  nuestro entorno.
+                </p>
+              </figcaption>
+            </figure>
+
+            <!-- Video 3 -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Video promocional: Alejandra Mendívil De la Reza"
+              >
+                <source src="media/video/video-03.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/video/video-03.mp4">Abrir el video.</a>
+              </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  Orden peatonal en espacios públicos
+                </h3>
+                <p class="upds-promo__caption-text">
+                  Alejandra Mendívil De la Reza, de la Facultad de Ciencias
+                  Empresariales, presentará “Flujo de circulación empresarial:
+                  orden peatonal en espacios públicos”, que se suma a las
+                  investigaciones de especialistas de distintos países.
+                </p>
+              </figcaption>
+            </figure>
+
+            <!-- Video 4 -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Video promocional: Ruth Koria"
+              >
+                <source src="media/video/video-04.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/video/video-04.mp4">Abrir el video.</a>
+              </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  Conocer una realidad es también el primer paso para
+                  transformarla
+                </h3>
+                <p class="upds-promo__caption-text">
+                  Ruth Koria, coordinadora de Extensión de la Facultad de
+                  Ciencias de la Salud, presentará “Características
+                  sociodemográficas y clínicas en personas con VIH (SSU)”, para
+                  comprender mejor sus necesidades desde la evidencia.
+                </p>
+              </figcaption>
+            </figure>
+
+            <!-- Video 5 -->
+            <figure class="upds-promo__video">
+              <video
+                class="upds-promo__player"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Video promocional: Róssely Royo Algarañaz"
+              >
+                <source src="media/video/video-05.mp4" type="video/mp4" />
+                Tu navegador no admite la reproducción de video.
+                <a href="media/video/video-05.mp4">Abrir el video.</a>
+              </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  Entre lo que dice la ley y lo que ocurre en la práctica
+                </h3>
+                <p class="upds-promo__caption-text">
+                  Róssely Royo Algarañaz, de la Facultad de Ciencias Jurídicas,
+                  analizará “Violencia intrafamiliar en Bolivia: distancia entre
+                  norma y aplicación”, una problemática que sigue planteando
+                  desafíos a la sociedad y a las instituciones.
+                </p>
+              </figcaption>
+            </figure>
+
+            <!-- Video 6 (video original de la página) -->
             <figure class="upds-promo__video">
               <video
                 class="upds-promo__player"
@@ -412,12 +548,20 @@
                 preload="auto"
                 aria-label="Video promocional de UPDS Investiga 2026, segunda versión"
               >
-                <source src="media/promocional-01.mp4" type="video/mp4" />
+                <source src="media/video/video-06.mp4" type="video/mp4" />
                 Tu navegador no admite la reproducción de video.
                 <a href="media/promocional-01.mp4">
                   Abrir el video promocional.
                 </a>
               </video>
+              <figcaption class="upds-promo__caption">
+                <h3 class="upds-promo__caption-title">
+                  UPDS Investiga 2026 · II versión
+                </h3>
+                <p class="upds-promo__caption-text">
+                  Conoce nuestra segunda versión y sé parte del encuentro.
+                </p>
+              </figcaption>
             </figure>
           </div>
         </section>
